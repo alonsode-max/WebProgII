@@ -5,6 +5,7 @@ function App() {
 
   return (
     <>
+      <Header/>
       <Routes>
         <Route></Route>
       </Routes>
