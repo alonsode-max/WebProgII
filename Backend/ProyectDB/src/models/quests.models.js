@@ -31,4 +31,11 @@ const updateQuest = async (id, quest) => {
     }
 }
 
-module.exports = { searchQuestById, getQuests, eraseQ, updateQuest }
+const insertQuest = async (quest) => {
+    const { nombre, descrip, puntos, rango } = quest
+    const insert = "INSERT INTO quests (nombre, descrip, puntos, rango) values(?,?,?,?)";
+    const [result] = await pool.query(insert, [nombre, descrip, puntos, rango])
+    return result
+}
+
+module.exports = { searchQuestById, getQuests, eraseQ, updateQuest, insertQuest }

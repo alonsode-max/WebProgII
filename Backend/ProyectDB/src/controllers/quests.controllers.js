@@ -1,4 +1,4 @@
-const { getQuests, searchQuestById, eraseQ } = require("../models/quests.models")
+const { getQuests, searchQuestById, eraseQ, insertQuest } = require("../models/quests.models")
 
 const getAllQuests = async (req, res) => {
     try {
@@ -46,7 +46,30 @@ const changeQuest = async (req, res) => {
         console.log(error)
     }
 }
-changeQuest
+
+const getQuestById = async (req, res) => {
+    try {
+        const { id } = req.params
+        const result = await searchQuestById(id)
+        res.status(200).json({ data: result })
+    } catch (error) {
+        res.status(500).json(error)
+        console.log(error)
+    }
+}
 
 
-module.exports = { getAllQuests, eraseQuest, changeQuest }
+const AddQuest = async (req, res) => {
+    try {
+        const quest = req.body
+        const resultClient = await insertQuest(quest)
+        res.status(200).json({ msg: "La misión ha sido añadida con éxito", insertId: resultClient.insertId })
+
+    } catch (error) {
+        res.status(500).json(error)
+        console.log(error)
+    }
+}
+
+
+module.exports = { getAllQuests, eraseQuest, changeQuest, getQuestById, AddQuest }
