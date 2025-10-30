@@ -14,7 +14,9 @@ function Home() {
             El gremio de héroes te da la bienvenida. Explora misiones épicas,
             supera desafíos y obtén recompensas dignas de una leyenda.
           </p>
-          <Link to="missions">Explorar Misiones</Link> style={styles.button}
+            <button style={styles.button}>
+             <Link to="missions"style={styles.button}>Explorar Misiones</Link> 
+            </button>
         </section>
 
         <section style={styles.section}>
@@ -55,7 +57,7 @@ const styles = {
     justifyContent: "center",
     gap: "3rem",
     width: "100%",
-    minHeight: "100%", 
+    minHeight: "100%",
     padding: "2rem 0",
     backgroundAttachment: "fixed",
     backgroundSize: "cover",
@@ -97,17 +99,16 @@ const styles = {
   button: {
     padding: "0.8rem 2rem",
     backgroundColor: "#7a4e2b",
-    color: "#fff",
+    color: "rgb(255, 255, 255)",
     borderRadius: "10px",
     textDecoration: "none",
     fontWeight: "bold",
     fontSize: "1.1rem",
-    transition: "0.3s",
+
   },
   section: {
     position: "relative",
     zIndex: 1,
-    maxWidth: "900px",
     width: "90%",
     textAlign: "center",
     padding: "2rem",

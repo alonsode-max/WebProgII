@@ -8,13 +8,14 @@ function Header({ children }) {
         <nav style={styles.nav}>
           <Link to="/" style={styles.link}>Home</Link>
           <Link to="/login" style={styles.link}>Login</Link>
-          <Link to="/missions"style={styles.link}>Missions</Link>
+          <Link to="/missions" style={styles.link}>Missions</Link>
           <Link to="/about" style={styles.link}>About</Link>
-          <Link to="/contact"style={styles.link}>Contact</Link>
+          <Link to="/contact" style={styles.link}>Contact</Link>
+          <Link to="/admin" style={styles.link}>admin</Link>
         </nav>
       </div>
       <div style={styles.centerContent}>
-        {children} 
+        {children}
       </div>
     </header>
   );
@@ -22,7 +23,7 @@ function Header({ children }) {
 
 const styles = {
   header: {
-    height: "100vh", 
+    height: "100vh",
     width: "100vw",
     backgroundImage: "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80')",
     backgroundSize: "cover",

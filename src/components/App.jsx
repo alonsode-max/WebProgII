@@ -9,18 +9,18 @@ import MissionList from "./MissionList";
 
 
 function App() {
-  const [user, setUser] = useState(null); 
+  const [user, setUser] = useState(null);
 
   return (
     <>
-     <Routes>
-         <Route path="/" element={<Home />} />
-         <Route path="/missions" element={<MissionList/>}/>
-         <Route path="/login" element={<Login setUser={setUser} />} />
-         <Route path="/admin" element={<Admin user={user} />} />
-         <Route path="/about" element={<About />} />
-         <Route path="/contact" element={<Contact />} />
-       </Routes>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/missions" element={<MissionList />} />
+        <Route path="/login" element={<Login setUser={setUser} />} />
+        <Route path="/admin" element={<Admin user={user} />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
     </>
   );
 }
