@@ -1,47 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getAllQuests } from "../services/Api";
 import Header from "./Header";
 
 export default function MissionList() {
-  const [missions] = useState([
-    {
-      id: 1,
-      title: "Salvar al gato del árbol",
-      description:
-        "Ayuda al gato perdido a bajar del árbol sin hacerle daño. Se requiere delicadeza y algo de ingenio.",
-      difficulty: "Fácil",
-    },
-    {
-      id: 2,
-      title: "Recuperar el tesoro perdido",
-      description:
-        "Encuentra el tesoro escondido en el bosque misterioso. Prepárate para trampas y guardianes antiguos.",
-      difficulty: "Difícil",
-    },
-    {
-      id: 3,
-      title: "Proteger la aldea de bandidos",
-      description:
-        "Defiende a los aldeanos durante la noche de ataques sorpresa. Valor, estrategia y trabajo en equipo.",
-      difficulty: "Media",
-    },
-  ]);
+  const [missions, setMissions] = useState([])
+
+  useEffect(() => {
+    const setQuest = async () => {
+      const answer = await getAllQuests()
+      setMissions(answer)
+      console.log(answer)
+    }
+    setQuest()
+  }, [])
 
   return (
     <Header>
-    <div style={styles.page}>
-      <h2 style={styles.title}>Tablón de Misiones</h2>
-      <div style={styles.cardsContainer}>
-        {missions.map((m) => (
-          <div key={m.id} className="mission-card" style={styles.card}>
-            <h3 style={styles.cardTitle}>{m.title}</h3>
-            <p style={styles.cardText}>{m.description}</p>
-            <p style={styles.cardDifficulty}>
-              <strong>Dificultad:</strong> {m.difficulty}
-            </p>
-          </div>
-        ))}
+      <div style={styles.page}>
+        <h2 style={styles.title}>Tablón de Misiones</h2>
+        <div style={styles.cardsContainer}>
+          {missions.map((m) => (
+            <div key={m.idQuests} className="mission-card" style={styles.card}>
+              <h3 style={styles.cardTitle}>{m.nombre}</h3>
+              <p style={styles.cardText}>{m.descrip}</p>
+              <p style={styles.cardDifficulty}>
+                <strong>Dificultad:</strong> {m.rango}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
     </Header>
   );
 }
@@ -58,7 +46,7 @@ const styles = {
     color: "#5b2e0c",
     marginBottom: "2rem",
     textShadow: "2px 2px #fff3",
-    fontFamily: "'Cinzel Decorative', serif", 
+    fontFamily: "'Cinzel Decorative', serif",
   },
   cardsContainer: {
     display: "flex",
