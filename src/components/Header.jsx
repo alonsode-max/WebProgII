@@ -8,6 +8,7 @@ function Header({ children }) {
         <nav style={styles.nav}>
           <Link to="/" style={styles.link}>Home</Link>
           <Link to="/login" style={styles.link}>Login</Link>
+          <Link to="/register" style={styles.link}>Register</Link>
           <Link to="/missions" style={styles.link}>Missions</Link>
           <Link to="/about" style={styles.link}>About</Link>
           <Link to="/contact" style={styles.link}>Contact</Link>
