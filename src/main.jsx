@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client'
 import './css/index.css'
 import App from './components/App.jsx'
 import { BrowserRouter } from 'react-router-dom'
-import { UserProvider } from './context/Usercontext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
