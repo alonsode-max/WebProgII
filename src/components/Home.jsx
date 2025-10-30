@@ -1,5 +1,6 @@
 import Header from "./Header";
-import MissionList from "./MissionList";
+import { Link } from "react-router-dom";
+
 
 function Home() {
   return (
@@ -13,9 +14,7 @@ function Home() {
             El gremio de héroes te da la bienvenida. Explora misiones épicas,
             supera desafíos y obtén recompensas dignas de una leyenda.
           </p>
-          <a href="#missions" style={styles.button}>
-            Explorar Misiones
-          </a>
+          <Link to="missions">Explorar Misiones</Link> style={styles.button}
         </section>
 
         <section style={styles.section}>
@@ -71,9 +70,8 @@ const styles = {
     position: "absolute",
     top: 0,
     left: 0,
-    width: "100%",
+    width: "100vw",
     height: "100%",
-    backgroundColor: "rgba(245, 238, 210, 0.35)", 
     zIndex: 0,
   },
   hero: {
@@ -127,7 +125,7 @@ const styles = {
     gap: "1.5rem",
   },
   card: {
-    backgroundColor: "rgba(255, 250, 240, 0.5)", 
+    backgroundColor: "rgba(255, 250, 240, 0.75)", 
     border: "2px solid #b8860b",
     borderRadius: "12px",
     padding: "1.5rem",
@@ -141,8 +139,8 @@ const styles = {
   },
   cardText: {
     fontSize: "1rem",
-    color: "#2c1a0a",
-    fontFamily: "MedievalSharp",
+    color: "rgb(54, 41, 29)",
+    fontFamily: "calibri",
   },
 };
 export default Home;
