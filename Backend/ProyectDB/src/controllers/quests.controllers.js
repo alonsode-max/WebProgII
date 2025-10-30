@@ -58,6 +58,17 @@ const getQuestById = async (req, res) => {
     }
 }
 
+const getQuestsByUser = async (req, res) => {
+    try {
+        const { id } = req.params
+        const result = await getQuestUsers(id)
+        res.status(200).json({ data: result })
+    } catch (error) {
+        res.status(500).json(error)
+        console.log(error)
+    }
+}
+
 
 const AddQuest = async (req, res) => {
     try {
@@ -72,4 +83,4 @@ const AddQuest = async (req, res) => {
 }
 
 
-module.exports = { getAllQuests, eraseQuest, changeQuest, getQuestById, AddQuest }
+module.exports = { getAllQuests, eraseQuest, changeQuest, getQuestById, AddQuest, getQuestsByUser }
