@@ -1,23 +1,26 @@
-import { Route, Routes } from "react-router-dom"
-import "../css/App.css"
-import Login from "./Login"
-import Home from "./Home"
-import Nav from "./Nav"
-import Register from "./Register"
-import { useState } from "react"
-
+import Home from "./Home";
+import Login from "./Login";
+import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import About from "./About";
+import Contact from "./Contact";
+import MissionList from "./MissionList";
+import Register from "./Register";
 
 
 function App() {
-  const [userLogin,setUserLogin] = useState(null)
+  const [userLogin, setUserLogin] = useState(null)
+
   return (
     <>
-    <Nav/>
-        <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="/login" element={<Login userLogin={userLogin}/>} />
-          <Route path="/register" element={<Register/>} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/missions" element={<MissionList />} />
+        <Route path="/login" element={<Login userLogin={userLogin} />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
     </>
   )
 }

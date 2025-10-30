@@ -10,6 +10,6 @@ server.use(cors())
 server.use(express.json())
 server.use("/api", router)
 
-server.listen(process.env.PORT, ()=>{
+server.listen(process.env.PORT, () => {
     console.log(`http://localhost:${process.env.PORT}`)
 })
