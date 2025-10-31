@@ -32,7 +32,7 @@ CREATE TABLE `quests` (
   `rango` char(1) NOT NULL,
   PRIMARY KEY (`idQuests`),
   UNIQUE KEY `idQuests_UNIQUE` (`idQuests`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,35 @@ CREATE TABLE `quests` (
 
 LOCK TABLES `quests` WRITE;
 /*!40000 ALTER TABLE `quests` DISABLE KEYS */;
+INSERT INTO `quests` VALUES (1,'Test','test',250,'A');
 /*!40000 ALTER TABLE `quests` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `quests_has_users`
+--
+
+DROP TABLE IF EXISTS `quests_has_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `quests_has_users` (
+  `quests_idQuests` int NOT NULL,
+  `users_idUsers` int NOT NULL,
+  PRIMARY KEY (`quests_idQuests`,`users_idUsers`),
+  KEY `fk_quests_has_users_users1_idx` (`users_idUsers`),
+  KEY `fk_quests_has_users_quests_idx` (`quests_idQuests`),
+  CONSTRAINT `fk_quests_has_users_quests` FOREIGN KEY (`quests_idQuests`) REFERENCES `quests` (`idQuests`),
+  CONSTRAINT `fk_quests_has_users_users1` FOREIGN KEY (`users_idUsers`) REFERENCES `users` (`idUsers`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `quests_has_users`
+--
+
+LOCK TABLES `quests_has_users` WRITE;
+/*!40000 ALTER TABLE `quests_has_users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `quests_has_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -53,7 +81,15 @@ DROP TABLE IF EXISTS `users`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
   `idUsers` int NOT NULL,
-  PRIMARY KEY (`idUsers`)
+  `nombre` varchar(255) NOT NULL,
+  `apellido` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `puntos_xp` int NOT NULL DEFAULT '0',
+  `nivel` int NOT NULL DEFAULT '1',
+  `rol` char(1) NOT NULL DEFAULT 'U',
+  PRIMARY KEY (`idUsers`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -75,4 +111,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-25 10:31:02
+-- Dump completed on 2025-10-31  9:41:06
