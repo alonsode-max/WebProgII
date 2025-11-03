@@ -1,5 +1,7 @@
+import { React } from 'react'
 import { createContext, useState } from "react";
-import { postLogin } from "../services/Api";
+import { postLogin } from "../services/api";
+
 
 export const UserContext = createContext()
 

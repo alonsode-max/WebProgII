@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
-import { getAllQuests } from "../services/Api";
+import { useEffect, useState, React } from "react";
 import Header from "./Header";
+import { Link } from "react-router-dom";
+import Mission from "./Mission";
+import { getAllQuests } from "../services/api";
 
 export default function MissionList() {
   const [missions, setMissions] = useState([])
@@ -20,13 +22,15 @@ export default function MissionList() {
         <h2 style={styles.title}>Tablón de Misiones</h2>
         <div style={styles.cardsContainer}>
           {missions.map((m) => (
-            <div key={m.idQuests} className="mission-card" style={styles.card}>
-              <h3 style={styles.cardTitle}>{m.nombre}</h3>
-              <p style={styles.cardText}>{m.descrip}</p>
-              <p style={styles.cardDifficulty}>
-                <strong>Dificultad:</strong> {m.rango}
-              </p>
-            </div>
+            <Link to={<Mission idQuests={m.idQuest} />}>
+              <div key={m.idQuests} className="mission-card" style={styles.card}>
+                <h3 style={styles.cardTitle}>{m.nombre}</h3>
+                <p style={styles.cardText}>{m.descrip}</p>
+                <p style={styles.cardDifficulty}>
+                  <strong>Dificultad:</strong> {m.rango}
+                </p>
+              </div>
+            </Link>
           ))}
         </div>
       </div>

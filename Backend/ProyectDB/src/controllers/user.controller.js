@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt")
-const { insertUser, selectByEmail } = require("../models/user.models")
-const { createToken } = require("../utils/jwt")
+const { insertUser, selectByEmail, updateUser, searchUserById, insertRelation } = require("../models/user.models")
+const { createToken } = require("../utilities/jwt")
 
 const registerUser = async (req, res) => {
     try {
@@ -14,6 +14,17 @@ const registerUser = async (req, res) => {
 
         const result = await insertUser(user)
         return res.status(202).json({ success: true, insertId: result.insertId })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ success: false, msg: error })
+    }
+}
+
+const addRelation = async (req, res) => {
+    try {
+        const rel = req.body
+        const result = await insertRelation(rel)
+        return res.status(202).json({ success: true, insertId: result })
     } catch (error) {
         console.log(error)
         res.status(500).json({ success: false, msg: error })
@@ -44,4 +55,40 @@ const login = async (req, res) => {
         return res.status(500).json({ succes: false, msg: error })
     }
 }
-module.exports = { registerUser, login }
+
+const editUser = async (req, res) => {
+    try {
+        const { id } = req.params
+        const user = req.body
+        const userSelect = await searchUserById(id)
+        if (userSelect.length === 0) {
+            res.status(404).json("Inicia sesión para jugar")
+        }
+        else {
+            const result = await updateUser(id, user)
+            if (result.affectedRows !== 0) {
+                res.status(202).json({ data: "Usuario modificada con exito" })
+            }
+        }
+    } catch (error) {
+        res.status(500).json(error)
+        console.log(error)
+    }
+}
+
+const getUserById = async (req, res) => {
+    try {
+        const user = await searchUserById(req.params.id)
+        if (user.length === 0) {
+            return res.status(400).json({ success: false, msg: "El usuario no existe" })
+        }
+        return res.status(202).json({ success: true, data: user })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ success: false, msg: error })
+    }
+}
+
+
+
+module.exports = { registerUser, login, editUser, getUserById, addRelation }
