@@ -1,3 +1,4 @@
+import React from 'react'
 import Home from "./Home";
 import Login from "./Login";
 import { useState } from "react";
@@ -16,7 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/missions" element={<MissionList />} />
-        <Route path="/login" element={<Login userLogin={userLogin} />} />
+        <Route path="/login" element={<Login userLogin={setUserLogin} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

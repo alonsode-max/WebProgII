@@ -1,3 +1,4 @@
+import React from 'react'
 import { useContext, useState } from "react"
 import { UserContext } from '../context/UserContext'
 import { useNavigate } from "react-router-dom"
@@ -7,7 +8,7 @@ const initial_state = {
   password: ""
 }
 
-function Login({ setUserLogin }) {
+function Login({userLogin, setUserLogin }) {
   const { login, logout } = useContext(UserContext)
   const [user, setUser] = useState(initial_state)
 
@@ -18,7 +19,7 @@ function Login({ setUserLogin }) {
     setUser({ ...user, [ev.target.id]: ev.target.value })
   }
 
-  const handleSubmit = (ev) => {
+  const handleSubmit = async (ev) => {
     ev.preventDefault()
     if (!user.email || !user.password) {
       setError("rellenar todos los campos")
@@ -28,10 +29,14 @@ function Login({ setUserLogin }) {
       setError("debes incluir @ o '.'")
       return;
     }
-    //hacer validacion luego si la contraseña o email existe
+      const success = await login(user);
+
+  if (!success) {
+    setError("Email o contraseña incorrectos");
+    return;
+  }
     setError("")
-    login(user)
-    //setUser({email:"",password:""})
+    //usar el setuserlogin con la info rol email, pass
   }
 
   const handleLogout = () => {
