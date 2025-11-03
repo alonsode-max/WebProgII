@@ -5,14 +5,26 @@ export const getAllQuests = async () => {
 };
 
 export const postLogin = async (user) => {
-    const data = await fetch(`http://localhost:3005/api/user/login`, {
+    try {
+        const response = await fetch(`http://localhost:3005/api/user/login`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(user)
     })
-    const respJson = await data.json()
-    return respJson
+
+    if (!response.ok) {
+        return { success: false, status: response.status };
+        }
+    const data = await response.json();
+    console.log(data)
+    //verificar que devuelva data completa
+    return { success: true, ...data };
+
+    } catch (error) {
+        console.error("Error en postLogin:", error);
+    return { success: false, status: 500 };
+    }
 
 }
