@@ -48,6 +48,9 @@ const login = async (req, res) => {
             email: userDb[0].email,
             rol: userDb[0].rol
         })
+        //modificar de manera de traer la info del user ademas del token
+        //query de info user
+        //traerlo a res
 
         return res.status(200).json({ success: true, msg: token })
 

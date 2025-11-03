@@ -11,7 +11,9 @@ const insertUser = async (user) => {
 // login 
 const login = async (user) => {
     const { email, password, rol } = user
-    const getUser = "select from users("
+    const getUser = "select from users(email,password,rol) value(?,?,?)"
+    const [result] = await pool.query(getUser, [email, password, rol])
+    return result
 }
 
 // agarrar email
