@@ -45,7 +45,7 @@ export const postLogin = async (user) => {
         const data = await response.json();
         console.log(data)
         //verificar que devuelva data completa
-        return { success: true, ...data };
+        return ({ success: true, token: data.msg });
 
     } catch (error) {
         console.error("Error en postLogin:", error);
