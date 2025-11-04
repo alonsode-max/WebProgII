@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { getQuestById, getUserById, postRel, updateUser } from "../services/api"
 
 function Mission({ idQuest }) {
@@ -74,5 +74,74 @@ function Mission({ idQuest }) {
         </div>
     )
 }
+
+const styles = {
+    container: {
+        textAlign: "center",
+        padding: "2rem",
+        position: "relative",
+        zIndex: 1,
+    },
+    title: {
+        fontSize: "2.4rem",
+        color: "#5b2e0c",
+        marginBottom: "2rem",
+        textShadow: "2px 2px #fff3",
+        fontFamily: "'Cinzel Decorative', serif",
+    },
+    cardsContainer: {
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        gap: "1.5rem",
+    },
+    card: {
+        backgroundColor: "rgba(255, 248, 230, 0.8)",
+        backgroundImage:
+            "url('https://www.transparenttextures.com/patterns/paper-fibers.png')",
+        border: "2px solid #b8860b",
+        borderRadius: "14px",
+        padding: "1.5rem",
+        width: "270px",
+        boxShadow: "4px 4px 8px #00000033",
+        transition: "all 0.3s ease",
+        cursor: "pointer",
+    },
+    cardTitle: {
+        fontSize: "1.4rem",
+        color: "#3b220a",
+        marginBottom: "0.8rem",
+        fontWeight: "bold",
+        fontFamily: "'Cinzel Decorative', serif",
+    },
+    cardText: {
+        fontSize: "1rem",
+        color: "#2c1a0a",
+        lineHeight: "1.5",
+        marginBottom: "0.8rem",
+        fontFamily: "'Spectral', serif",
+    },
+    cardDifficulty: {
+        fontSize: "0.95rem",
+        color: "#7a4e2b",
+        fontStyle: "italic",
+        fontFamily: "'Spectral', serif",
+    },
+    page: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "100vw",
+        minHeight: "100%",
+        padding: "2rem 0",
+        backgroundAttachment: "fixed",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        position: "relative",
+        overflow: "hidden",
+    },
+};
 
 export default Mission

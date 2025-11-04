@@ -1,17 +1,18 @@
 export const getAllQuests = async () => {
-    const data = await fetch("http://localhost:5000/api/quest");
+    const data = await fetch("http://localhost:3305/api/quest/quest");
     const respJson = await data.json();
+    console.log(respJson)
     return respJson.data;
 };
 
 export const getQuestById = async (id) => {
-    const data = await fetch(`http://localhost:5000/api/quest/${id} `);
+    const data = await fetch(`http://localhost:3305/api/quest//quest/${id} `);
     const respJson = await data.json();
     return respJson.data;
 };
 
 export const getUserById = async (id) => {
-    const data = await fetch(`http://localhost:5000/api/user/${id} `);
+    const data = await fetch(`http://localhost:3305/api/user/${id} `);
     const respJson = await data.json();
     return respJson.data[0];
 };
