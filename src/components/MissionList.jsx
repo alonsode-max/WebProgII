@@ -16,21 +16,24 @@ export default function MissionList() {
     setQuest()
   }, [])
 
+  const handleCLick = (id) => {
+    console.log(id);
+    //navigate con el id
+  }
+
   return (
     <Header>
       <div style={styles.page}>
         <h2 style={styles.title}>Tablón de Misiones</h2>
         <div style={styles.cardsContainer}>
           {missions.map((m) => (
-            <Link to={<Mission idQuests={m.idQuest} />}>
-              <div key={m.idQuests} className="mission-card" style={styles.card}>
-                <h3 style={styles.cardTitle}>{m.nombre}</h3>
-                <p style={styles.cardText}>{m.descrip}</p>
-                <p style={styles.cardDifficulty}>
-                  <strong>Dificultad:</strong> {m.rango}
-                </p>
-              </div>
-            </Link>
+            <div onClick={() => { handleCLick(m.idQuests) }} key={m.idQuests} className="mission-card" style={styles.card}>
+              <h3 style={styles.cardTitle}>{m.nombre}</h3>
+              <p style={styles.cardText}>{m.descrip}</p>
+              <p style={styles.cardDifficulty}>
+                <strong>Dificultad:</strong> {m.rango}
+              </p>
+            </div>
           ))}
         </div>
       </div>

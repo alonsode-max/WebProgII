@@ -62,10 +62,10 @@ function Mission({ idQuest }) {
             <h3 style={styles.cardTitle}>{mission.nombre}</h3>
 
             <p style={styles.cardText}>{mission.pregunta}</p>
-            <input type="radio" name={mission.sol2} id={mission.sol2} onClick={radAnswer} />
-            <input type="radio" name={mission.sol3} id={mission.sol3} onClick={radAnswer} />
-            <input type="radio" name={mission.sol4} id={mission.sol4} onClick={radAnswer} />
-            <input type="radio" name={mission.sol1} id={mission.sol1} onClick={radAnswer} />
+            <input type="radio" name={mission.sol2} id={mission.sol2} onClick={radAnswer} value={mission.sol2} />
+            <input type="radio" name={mission.sol3} id={mission.sol3} onClick={radAnswer} value={mission.sol3} />
+            <input type="radio" name={mission.sol4} id={mission.sol4} onClick={radAnswer} value={mission.sol4} />
+            <input type="radio" name={mission.sol1} id={mission.sol1} onClick={radAnswer} value={mission.sol1} />
             <button onClick={handleClick}>Enviar</button>
 
             <p style={styles.cardDifficulty}>
