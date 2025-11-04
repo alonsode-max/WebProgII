@@ -28,11 +28,16 @@ CREATE TABLE `quests` (
   `idQuests` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
   `descrip` varchar(255) DEFAULT NULL,
-  `puntos` int NOT NULL,
   `rango` char(1) NOT NULL,
+  `pregunta` text NOT NULL,
+  `sol1` text NOT NULL,
+  `sol2` text NOT NULL,
+  `sol3` text NOT NULL,
+  `sol4` text NOT NULL,
+  `resp` text NOT NULL,
   PRIMARY KEY (`idQuests`),
   UNIQUE KEY `idQuests_UNIQUE` (`idQuests`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +46,7 @@ CREATE TABLE `quests` (
 
 LOCK TABLES `quests` WRITE;
 /*!40000 ALTER TABLE `quests` DISABLE KEYS */;
-INSERT INTO `quests` VALUES (1,'Test','test',250,'A');
+INSERT INTO `quests` VALUES (1,'Test','test','A','Que','so','tal','payaso','loco','so'),(2,'Test2','nose','C','Nose','pass','cruel','nada','todo','pass');
 /*!40000 ALTER TABLE `quests` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,7 +85,7 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
-  `idUsers` int NOT NULL,
+  `idUsers` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
   `apellido` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -90,7 +95,7 @@ CREATE TABLE `users` (
   `rol` char(1) NOT NULL DEFAULT 'U',
   PRIMARY KEY (`idUsers`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,6 +104,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'Rick','Sanchez','carac@ola.es','$2b$10$/6CMdYBQmIyTql.9rFLRouGcBlAj6tfaYi8boddzeu0O6U5rvzEga',0,1,'U');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -111,4 +117,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-31  9:41:06
+-- Dump completed on 2025-11-04 17:57:39
