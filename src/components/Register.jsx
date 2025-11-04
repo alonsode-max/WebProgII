@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react'
 
 function Register() {
     const [formData, setFormData] = useState({
-        name: "",
-        surname: "",
-        username: "",
+        nombre: "",
+        apellido: "",
         email: "",
         password: ""
         /*repeatPass:""*/
@@ -13,7 +12,8 @@ function Register() {
     const [serverMessage, setServerMessage] = useState("");
     const [status, setStatus] = useState("");
 
-    const insertUser = (formData) => {
+    const insertUser = async (formData) => {
+        console.log(formData)
         fetch("http://localhost:3005/api/user/register", {
             method: "POST",
             body: JSON.stringify(formData),
@@ -46,7 +46,7 @@ function Register() {
     const handleSubmit = (ev) => {
         ev.preventDefault()
         //hacer validaciones
-        if (!formData.name || !formData.surname || !formData.username) {
+        if (!formData.nombre || !formData.apellido) {
             alert("Debes de poner tu nombre,apellido y username correctamente. ")
             return
         }
@@ -73,15 +73,11 @@ function Register() {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="">Nombre</label>
-                    <input type="text" id='name' onChange={handleFormData} value={formData.name} />
+                    <input type="text" id='nombre' onChange={handleFormData} value={formData.nombre} />
                 </div>
                 <div>
                     <label htmlFor="">Apellidos</label>
-                    <input type="text" id='surname' onChange={handleFormData} value={formData.surname} />
-                </div>
-                <div>
-                    <label htmlFor="">Nombre de usuario</label>
-                    <input type="text" id='username' onChange={handleFormData} value={formData.username} />
+                    <input type="text" id='apellido' onChange={handleFormData} value={formData.apellido} />
                 </div>
                 <div>
                     <label htmlFor="">Email</label>

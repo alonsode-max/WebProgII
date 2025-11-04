@@ -2,9 +2,9 @@ const pool = require("../config/conex.js")
 
 //register
 const insertUser = async (user) => {
-    const { name, surname, username, email, password } = user
-    const insert = "insert into users(name,surname,username,email,password) value(?,?,?,?,?)"
-    const [result] = await pool.query(insert, [name, surname, username, email, password])
+    const { nombre, apellido, email, password } = user
+    const insert = "insert into users(nombre, apellido, email, password) value(?,?,?,?)"
+    const [result] = await pool.query(insert, [nombre, apellido, email, password])
     return result
 }
 
