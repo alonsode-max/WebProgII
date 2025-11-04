@@ -6,7 +6,7 @@ export const getAllQuests = async () => {
 };
 
 export const getQuestById = async (id) => {
-    const data = await fetch(`http://localhost:3005/api/quest//quest/${id} `);
+    const data = await fetch(`http://localhost:3005/api/quest/quest/${id} `);
     const respJson = await data.json();
     return respJson.data;
 };
@@ -45,7 +45,7 @@ export const postLogin = async (user) => {
         const data = await response.json();
         console.log(data)
         //verificar que devuelva data completa
-        return ({ success: true, token: data.msg });
+        return ({ success: true, token: data.token, id: data.id });
 
     } catch (error) {
         console.error("Error en postLogin:", error);
@@ -53,9 +53,9 @@ export const postLogin = async (user) => {
     }
 }
 
-export const postRel = async (idQuest, idUser) => {
+export const postRel = async (idQuests, idUser) => {
     const body = {
-        "quests_idQuests": idQuest,
+        "quests_idQuests": idQuests,
         "users_idUsers": idUser
     }
     const data = await fetch(`http://localhost:3005/api/user/relation`, {

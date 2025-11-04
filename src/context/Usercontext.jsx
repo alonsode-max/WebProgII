@@ -15,8 +15,8 @@ export const UserProvider = ({ children }) => {
         if (data.success === true) {
             console.log(data.success, data.token)
             localStorage.setItem("token", data.token);
-
-            setUser(data.user);
+            localStorage.setItem("id", data.id);
+            setUser(data.id);
             return true;
         }
         return false;

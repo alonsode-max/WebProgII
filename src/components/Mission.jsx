@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react"
 import { getQuestById, getUserById, postRel, updateUser } from "../services/api"
+import { useParams } from "react-router-dom"
 
-function Mission({ idQuest }) {
+function Mission() {
 
+    const idUser = localStorage.getItem("id")
+    const { idQuests } = useParams()
+    console.log(idQuests)
     const [mission, setMission] = useState([])
     const [answer, setAnswer] = useState([])
 
     useEffect(() => {
         const setQuest = async () => {
-            const data = await getQuestById(idQuest)
+            const data = await getQuestById(idQuests)
             setMission(data[0])
         }
         setQuest()
     }, [])
 
-    const radAnswer = () => {
+    const radAnswer = (ev) => {
         setAnswer(ev.target.value)
     }
 
@@ -23,13 +27,17 @@ function Mission({ idQuest }) {
         console.log(data)
     }
 
-    const insertRelation = async (idUser, idQuest) => {
-        const data = await postRel(idQuest, idUser)
+    const insertRelation = async (idUser, idQuests) => {
+        const data = await postRel(idQuests, idUser)
         console.log(data)
     }
 
     const handleClick = () => {
-        let user = getUserById()   //Falta meter el id por token
+        if (!idUser) {
+            //navegar al home
+        }
+
+        let user = getUserById(idUser)
         if (answer === mission.resp) {
             switch (mission.rango) {
                 case 'S':
@@ -62,10 +70,10 @@ function Mission({ idQuest }) {
             <h3 style={styles.cardTitle}>{mission.nombre}</h3>
 
             <p style={styles.cardText}>{mission.pregunta}</p>
-            <input type="radio" name={mission.sol2} id={mission.sol2} onClick={radAnswer} value={mission.sol2} />
-            <input type="radio" name={mission.sol3} id={mission.sol3} onClick={radAnswer} value={mission.sol3} />
-            <input type="radio" name={mission.sol4} id={mission.sol4} onClick={radAnswer} value={mission.sol4} />
-            <input type="radio" name={mission.sol1} id={mission.sol1} onClick={radAnswer} value={mission.sol1} />
+            <input type="radio" name="Options" id={mission.sol2} onClick={radAnswer} value={mission.sol2} /> <label htmlFor={mission.sol2}>{mission.sol2} </label>
+            <input type="radio" name="Options" id={mission.sol3} onClick={radAnswer} value={mission.sol3} /> <label htmlFor={mission.sol3}>{mission.sol3} </label>
+            <input type="radio" name="Options" id={mission.sol4} onClick={radAnswer} value={mission.sol4} /> <label htmlFor={mission.sol4}>{mission.sol4} </label>
+            <input type="radio" name="Options" id={mission.sol1} onClick={radAnswer} value={mission.sol1} /> <label htmlFor={mission.sol1}>{mission.sol1} </label>
             <button onClick={handleClick}>Enviar</button>
 
             <p style={styles.cardDifficulty}>

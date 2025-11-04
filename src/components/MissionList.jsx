@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import { Link } from "react-router-dom";
-import Mission from "./Mission";
 import { getAllQuests } from "../services/api";
 
 export default function MissionList() {
@@ -16,7 +15,7 @@ export default function MissionList() {
     setQuest()
   }, [])
 
-  const handleCLick = (id) => {
+  const handleClick = (id) => {
     console.log(id);
     //navigate con el id
   }
@@ -27,13 +26,13 @@ export default function MissionList() {
         <h2 style={styles.title}>Tablón de Misiones</h2>
         <div style={styles.cardsContainer}>
           {missions.map((m) => (
-            <div onClick={() => { handleCLick(m.idQuests) }} key={m.idQuests} className="mission-card" style={styles.card}>
+            <Link to={`/mission/${m.idQuests}`} key={m.idQuests} ><div className="mission-card" style={styles.card}>
               <h3 style={styles.cardTitle}>{m.nombre}</h3>
               <p style={styles.cardText}>{m.descrip}</p>
               <p style={styles.cardDifficulty}>
                 <strong>Dificultad:</strong> {m.rango}
               </p>
-            </div>
+            </div></Link>
           ))}
         </div>
       </div>

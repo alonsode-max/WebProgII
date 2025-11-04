@@ -52,7 +52,7 @@ const login = async (req, res) => {
         //query de info user
         //traerlo a res
 
-        return res.status(200).json({ success: true, msg: token })
+        return res.status(200).json({ success: true, token: token, id: userDb[0].iduser })
 
     } catch (error) {
         return res.status(500).json({ succes: false, msg: error })
