@@ -37,7 +37,7 @@ function Mission() {
             //navegar al home
         }
 
-        let user = getUserById(idUser)
+        let user = getUserById(parseInt(idUser))
         if (answer === mission.resp) {
             switch (mission.rango) {
                 case 'S':

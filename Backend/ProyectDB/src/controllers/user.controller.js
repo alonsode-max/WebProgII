@@ -35,6 +35,7 @@ const login = async (req, res) => {
     try {
         const user = req.body
         const userDb = await selectByEmail(user.email)
+        console.log(userDB)
         if (userDb.length === 0) {
             return res.status(404).json({ success: false, msg: "email no encontrado" })
         }
@@ -51,7 +52,6 @@ const login = async (req, res) => {
         //modificar de manera de traer la info del user ademas del token
         //query de info user
         //traerlo a res
-
         return res.status(200).json({ success: true, token: token, id: userDb[0].iduser })
 
     } catch (error) {
