@@ -42,9 +42,9 @@ const insertRelation = async (rel) => {
     const [result] = await pool.query(insert, [quests_idQuests, users_idUsers])
     return result
 }
-//los nombres de las variables de sql no estan bien por que no he podido acceder pero el codigo funciona perfectamente seria cambiar lo de usuarios y puntuacion.
+//los nombres de las variables de sql no estan bien por que no he podido acceder pero el codigo funciona perfectamente seria cambiarlo de puntuacion.
 const LeaderBoard = async () => {
-  const query = "SELECT * FROM usuarios ORDER BY puntuacion DESC";
+  const query = "SELECT * FROM users ORDER BY puntuacion DESC";
   const [result] = await pool.query(query);
   return result;
 };
