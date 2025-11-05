@@ -14,6 +14,9 @@ const registerUser = async (req, res) => {
 
         const result = await insertUser(user)
         return res.status(202).json({ success: true, insertId: result.insertId })
+        console.log(result.insertId)
+
+        
     } catch (error) {
         console.log(error)
         res.status(500).json({ success: false, msg: error })
@@ -35,7 +38,6 @@ const login = async (req, res) => {
     try {
         const user = req.body
         const userDb = await selectByEmail(user.email)
-        console.log(userDB)
         if (userDb.length === 0) {
             return res.status(404).json({ success: false, msg: "email no encontrado" })
         }
@@ -45,17 +47,27 @@ const login = async (req, res) => {
             return res.status(400).json({ success: false, msg: "contraseña incorrecta" })
         }
         const token = createToken({
-            id: userDb[0].iduser,
+            id: userDb[0].idusers,
             email: userDb[0].email,
             rol: userDb[0].rol
         })
         //modificar de manera de traer la info del user ademas del token
         //query de info user
         //traerlo a res
-        return res.status(200).json({ success: true, token: token, id: userDb[0].iduser })
+        return res.status(200).json({ success: true, token: token, user: {
+        id: userDb[0].idUsers,   
+        nombre: userDb[0].nombre,
+        apellido: userDb[0].apellido,
+        email: userDb[0].email,
+        rol: userDb[0].rol,
+        nombre_usuario: userDb[0].nombre_usuario,
+        puntos_xp: userDb[0].puntos_xp,
+        nivel: userDb[0].nivel
+    } })
 
     } catch (error) {
         return res.status(500).json({ succes: false, msg: error })
+
     }
 }
 

@@ -2,16 +2,16 @@ const pool = require("../config/conex.js")
 
 //register
 const insertUser = async (user) => {
-    const { nombre, apellido, email, password } = user
-    const insert = "insert into users(nombre, apellido, email, password) value(?,?,?,?)"
-    const [result] = await pool.query(insert, [nombre, apellido, email, password])
+    const { nombre, apellido, email, password,nombre_usuario } = user
+    const insert = "insert into users(nombre, apellido, email, password, nombre_usuario) value(?,?,?,?,?)"
+    const [result] = await pool.query(insert, [nombre, apellido, email, password, nombre_usuario])
     return result
 }
 
 // login 
 const login = async (user) => {
     const { email, password, rol } = user
-    const getUser = "select from users(email,password,rol) value(?,?,?)"
+    const getUser = "select * from users(email,password,rol) value(?,?,?)"
     const [result] = await pool.query(getUser, [email, password, rol])
     return result
 }
@@ -31,7 +31,7 @@ const searchUserById = async (id) => {
 
 const updateUser = async (id, user) => {
     let { nombre, apellido, email, password, puntos_xp, nivel, rol } = user
-    const sql = "UPDATE users SET nombre = ?, apellido=?, email=? password=? puntos_xp=? nivel=? rol=? WHERE idPlan= ?";
+    const sql = "UPDATE users SET nombre = ?, apellido=?, email=? password=? puntos_xp=? nivel=? rol=? WHERE idUsers= ?";
     const [result] = await pool.query(sql, [nombre, apellido, email, password, puntos_xp, nivel, rol, id])
     return result;
 }

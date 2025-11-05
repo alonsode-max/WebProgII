@@ -8,10 +8,10 @@ const initial_state = {
   password: ""
 }
 
-function Login({userLogin, setUserLogin }) {
-  const { login, logout } = useContext(UserContext)
+function Login() {
+  const { login, logout, userLog } = useContext(UserContext)
   const [user, setUser] = useState(initial_state)
-
+  const navigate = useNavigate();
   //const navigate = useNavigate()
   const [error, setError] = useState("");
 
@@ -35,8 +35,9 @@ function Login({userLogin, setUserLogin }) {
     setError("Email o contraseña incorrectos");
     return;
   }
-    setError("")
-    //usar el setuserlogin con la info rol email, pass
+  setError("")
+  //usar el setuserlogin con la info rol email, pass
+  navigate("/profile"); 
   }
 
   const handleLogout = () => {

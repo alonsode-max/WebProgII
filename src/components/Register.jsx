@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 function Register() {
     const [formData, setFormData] = useState({
         nombre: "",
+        nombre_usuario:"",
         apellido: "",
         email: "",
         password: ""
@@ -75,6 +76,10 @@ function Register() {
                     <label htmlFor="">Nombre</label>
                     <input type="text" id='nombre' onChange={handleFormData} value={formData.nombre} />
                 </div>
+                <div>
+                    <label htmlFor="">Nombre de usuario</label>
+                    <input type="text" id='nombre_usuario' onChange={handleFormData} value={formData.nombre_usuario} />
+                </div>               
                 <div>
                     <label htmlFor="">Apellidos</label>
                     <input type="text" id='apellido' onChange={handleFormData} value={formData.apellido} />

@@ -1,148 +1,67 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { editUser } from "./Login";
-import { UserContext } from "../../context/UserContext";
-import logo from "./image.png"
+//import { editUser } from "./Login";
+import { UserContext } from "../context/UserContext";
+
+
 
 function Profile() {
-    const { user } = useContext(UserContext);
+    const { userLog, logout } = useContext(UserContext);
 
-    const initial = user || {
+    console.log(userLog,"perfil")
+    const initial = userLog || {
         userName: "",
         email: "",
         age: "",
         city: "",
-        role: "user",
-        password: "",
+        role: "",
+        password: ""
     };
 
-    const [newUser, setUser] = useState(initial);
-    const [menuOpen, setMenuOpen] = useState(false);
+    //const [newUser, setUser] = useState(initial);
+    //const [menuOpen, setMenuOpen] = useState(false);
 
     const handleSubmits = (ev) => {
         ev.preventDefault();
-        editUser(newUser, user?.password);
+        //editUser(newUser, user?.password);
     };
 
-    const handleChange = (ev) => {
-        setUser({ ...newUser, [ev.target.id]: ev.target.value });
-    };
+    const handleLogout = () => {
+        logout()
+    }
 
     return (
-        <div style={styles.page}>
-            <header style={styles.header}>
-                <div style={styles.leftHeader}>
-                    <div style={styles.menuContainer}>
-                        <button
-                            style={styles.menuBtn}
-                            onClick={() => setMenuOpen(!menuOpen)}
-                        >
-                            ☰ Menú
-                        </button>
-                        {menuOpen && (
-                            <ul style={styles.dropdown}>
-                                <li>
-                                    <Link to="/" style={styles.link}>
-                                        Inicio
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/reviews" style={styles.link}>
-                                        Your reviews
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/addcom" style={styles.link}>
-                                        Add Commerce
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/profile" style={styles.link}>
-                                        Profile info
-                                    </Link>
-                                </li>
-                            </ul>
-                        )}
-                    </div>
-                    <h2 style={styles.logo}>CommerceNet</h2>
-                </div>
+    <div className="profile-container">
+      <h1 className="profile-title">Perfil de Usuario</h1>
 
-                <div style={styles.rightHeader}>
-                    <img
-                        src={logo}
-                        alt="Logo"
-                        style={styles.headerImg}
-                    />
-                </div>
-            </header>
-
-            <main style={styles.main}>
-                <div style={styles.commerceCard}>
-                    <h2 style={styles.commerceTitle}>Perfil de Usuario</h2>
-                    <form onSubmit={handleSubmits} style={styles.form}>
-                        <div style={styles.field}>
-                            <label style={styles.commerceLabel} htmlFor="userName">
-                                Username:
-                            </label>
-                            <input
-                                onChange={handleChange}
-                                type="text"
-                                id="userName"
-                                value={newUser.userName || ""}
-                                style={styles.input}
-                            />
-                        </div>
-
-                        <div style={styles.field}>
-                            <label style={styles.commerceLabel} htmlFor="email">
-                                Email:
-                            </label>
-                            <input
-                                onChange={handleChange}
-                                type="email"
-                                id="email"
-                                value={newUser.email || ""}
-                                style={styles.input}
-                            />
-                        </div>
-
-                        <div style={styles.field}>
-                            <label style={styles.commerceLabel} htmlFor="age">
-                                Edad:
-                            </label>
-                            <input
-                                onChange={handleChange}
-                                type="number"
-                                id="age"
-                                value={newUser.age || ""}
-                                style={styles.input}
-                            />
-                        </div>
-
-                        <div style={styles.field}>
-                            <label style={styles.commerceLabel} htmlFor="city">
-                                Ciudad:
-                            </label>
-                            <input
-                                onChange={handleChange}
-                                type="text"
-                                id="city"
-                                value={newUser.city || ""}
-                                style={styles.input}
-                            />
-                        </div>
-
-                        <p>
-                            <span style={styles.commerceLabel}>Role:</span> {newUser.role}
-                        </p>
-
-                        <button type="submit" style={styles.saveBtn}>
-                            Guardar cambios
-                        </button>
-                    </form>
-                </div>
-            </main>
+      <div className="profile-card">
+        <div className="profile-header">
+          <img
+            src={userLog.avatar || "https://via.placeholder.com/100"}
+            alt="Foto de perfil"
+            className="profile-avatar"
+          />
+          <h2>{userLog.nombre_usuario || "Usuario sin nombre"}</h2>
         </div>
+
+        <div className="profile-info">
+          <p><strong>ID:</strong> {userLog.id}</p>
+          <p><strong>Nombre:</strong> {userLog.nombre}</p>
+          <p><strong>Correo electrónico:</strong> {userLog.email}</p>
+          <p><strong>Rol:</strong> {userLog.role || "Usuario"}</p>
+          <p><strong>Fecha de registro:</strong> {userLog.created_at || "N/A"}</p>
+        </div>
+
+        <div>
+          <p><strong>Nivel:</strong> {userLog.nivel}</p>
+          <p><strong>XP:</strong> {userLog.puntos_xp}</p>          
+        </div>
+        <div className="profile-actions">
+          <button className="edit-btn">Editar perfil</button>
+          <button onClick={handleLogout} >Cerrar sesión</button>
+        </div>
+      </div>
+    </div>
     );
 }
 
