@@ -58,9 +58,7 @@ function Mission() {
                         user.puntos_xp += 100;
                         break;
                 }
-                if (user.puntos_xp % 1000 === 0) {
-                    user.nivel++;
-                }
+                user.nivel = parseInt(user.puntos_xp / 1000)
             }
             changeUser(user)
             insertRelation(user.idUsers, mission.idQuests)
