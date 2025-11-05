@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react"
 import { getQuestById, getUserById, postRel, updateUser } from "../services/api"
 import { useParams } from "react-router-dom"
 
+
 function Mission() {
 
-    const idUser = localStorage.getItem("id")
+    let idUser = localStorage.getItem("id")
+    idUser = parseInt(idUser)
     const { idQuests } = useParams()
-    console.log(idQuests)
     const [mission, setMission] = useState([])
     const [answer, setAnswer] = useState([])
 
@@ -32,37 +33,37 @@ function Mission() {
         console.log(data)
     }
 
-    const handleClick = () => {
+    const handleClick = async () => {
         if (!idUser) {
             //navegar al home
         }
-
-        //let user = getUserById(idUser)
-       // let user = getUserById(parseInt(idUser))
-        if (answer === mission.resp) {
-            switch (mission.rango) {
-                case 'S':
-                    user.puntos_xp += 500;
-                    break;
-                case 'A':
-                    user.puntos_xp += 400;
-                    break;
-                case 'B':
-                    user.puntos_xp += 300;
-                    break;
-                case 'C':
-                    user.puntos_xp += 200;
-                    break;
-                case 'D':
-                    user.puntos_xp += 100;
-                    break;
+        else {
+            const user = await getUserById(parseInt(idUser))
+            if (answer === mission.resp) {
+                switch (mission.rango) {
+                    case 'S':
+                        user.puntos_xp += 500;
+                        break;
+                    case 'A':
+                        user.puntos_xp += 400;
+                        break;
+                    case 'B':
+                        user.puntos_xp += 300;
+                        break;
+                    case 'C':
+                        user.puntos_xp += 200;
+                        break;
+                    case 'D':
+                        user.puntos_xp += 100;
+                        break;
+                }
+                if (user.puntos_xp % 1000 === 0) {
+                    user.nivel++;
+                }
             }
-            if (user.puntos_xp % 1000 === 0) {
-                user.nivel++;
-            }
+            changeUser(user)
+            insertRelation(user.idUsers, mission.idQuests)
         }
-        changeUser(user)
-        insertRelation(user.idUsers, mission.idQuests)
     }
 
 
@@ -83,4 +84,74 @@ function Mission() {
         </div>
     )
 }
+
+const styles = {
+    container: {
+        textAlign: "center",
+        padding: "2rem",
+        position: "relative",
+        zIndex: 1,
+    },
+    title: {
+        fontSize: "2.4rem",
+        color: "#5b2e0c",
+        marginBottom: "2rem",
+        textShadow: "2px 2px #fff3",
+        fontFamily: "'Cinzel Decorative', serif",
+    },
+    cardsContainer: {
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        gap: "1.5rem",
+    },
+    card: {
+        backgroundColor: "rgba(255, 248, 230, 0.8)",
+        backgroundImage:
+            "url('https://www.transparenttextures.com/patterns/paper-fibers.png')",
+        border: "2px solid #b8860b",
+        borderRadius: "14px",
+        padding: "1.5rem",
+        width: "270px",
+        boxShadow: "4px 4px 8px #00000033",
+        transition: "all 0.3s ease",
+        cursor: "pointer",
+    },
+    cardTitle: {
+        fontSize: "1.4rem",
+        color: "#3b220a",
+        marginBottom: "0.8rem",
+        fontWeight: "bold",
+        fontFamily: "'Cinzel Decorative', serif",
+    },
+    cardText: {
+        fontSize: "1rem",
+        color: "#2c1a0a",
+        lineHeight: "1.5",
+        marginBottom: "0.8rem",
+        fontFamily: "'Spectral', serif",
+    },
+    cardDifficulty: {
+        fontSize: "0.95rem",
+        color: "#7a4e2b",
+        fontStyle: "italic",
+        fontFamily: "'Spectral', serif",
+    },
+    page: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "100vw",
+        minHeight: "100%",
+        padding: "2rem 0",
+        backgroundAttachment: "fixed",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        position: "relative",
+        overflow: "hidden",
+    },
+};
+
 export default Mission;

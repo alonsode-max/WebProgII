@@ -2,34 +2,18 @@ import React, { useEffect, useState } from "react";
 import "../css/MissionsList.css";
 import Header from "./Header";
 import { Link } from "react-router-dom";
+import { getAllQuests } from "../services/api";
 
 function MissionsList() {
   const [missions, setMissions] = useState([]);
   const [selectedMission, setSelectedMission] = useState(null);
 
   useEffect(() => {
-    // Misión de ejemplo manual
-    const exampleMission = [
-      {
-        idQuests: 1,
-        nombre: "El Tesoro del Bosque Antiguo",
-        descripcion:
-          "En los confines del bosque de Eldwyn, se oculta un cofre sellado con magia ancestral. Solo los dignos pueden romper su sello. Tu tarea es encontrar el talismán del druida y usarlo en el altar del claro iluminado.",
-        rango: "A",
-        recompensa: 400,
-        pregunta: "¿Qué criatura custodia el altar del claro?",
-      },
-      {
-        idQuests: 2,
-        nombre: "Sombras en la Fortaleza",
-        descripcion:
-          "Una antigua fortaleza al norte ha sido tomada por bandidos. El gremio necesita exploradores para infiltrarse y obtener información sobre su líder.",
-        rango: "B",
-        recompensa: 300,
-        pregunta: "¿Cuál es el nombre del jefe bandido?",
-      },
-    ];
-    setMissions(exampleMission);
+    const setQuests = async () => {
+      const data = await getAllQuests()
+      setMissions(data)
+    }
+    setQuests();
   }, []);
 
   const handleSelect = (mission) => {
@@ -61,7 +45,7 @@ function MissionsList() {
                 Dificultad: <strong>{mission.rango}</strong>
               </p>
               <p className="mission-summary">
-                {mission.descripcion.slice(0, 80)}...
+                {mission.descripcion}...
               </p>
             </div>
           ))}

@@ -35,7 +35,7 @@ const login = async (req, res) => {
     try {
         const user = req.body
         const userDb = await selectByEmail(user.email)
-        console.log(userDB)
+        console.log(userDb)
         if (userDb.length === 0) {
             return res.status(404).json({ success: false, msg: "email no encontrado" })
         }
@@ -49,12 +49,12 @@ const login = async (req, res) => {
             email: userDb[0].email,
             rol: userDb[0].rol
         })
-        //modificar de manera de traer la info del user ademas del token
         //query de info user
         //traerlo a res
-        return res.status(200).json({ success: true, token: token, id: userDb[0].iduser })
+        return res.status(200).json({ success: true, token: token, user: userDb[0] })
 
     } catch (error) {
+        console.log(error)
         return res.status(500).json({ succes: false, msg: error })
     }
 }
@@ -91,15 +91,15 @@ const getUserById = async (req, res) => {
         res.status(500).json({ success: false, msg: error })
     }
 }
-const getLeaderBoard= async (req, res) => {
+const getLeaderBoard = async (req, res) => {
     try {
-      const users = await LeaderBoard();
-      res.json(users);
+        const users = await LeaderBoard();
+        res.json(users);
     } catch (error) {
-      console.log(error)
-      res.status(500).json({ message: "Error al obtener los usuarios" });
+        console.log(error)
+        res.status(500).json({ message: "Error al obtener los usuarios" });
     }
-  };
+};
 
 
-module.exports = { registerUser, login, editUser, getUserById, addRelation ,getLeaderBoard}
+module.exports = { registerUser, login, editUser, getUserById, addRelation, getLeaderBoard }
