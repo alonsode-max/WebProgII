@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../css/MissionsList.css";
 import Header from "./Header";
+import { Link } from "react-router-dom";
 
 function MissionsList() {
   const [missions, setMissions] = useState([]);
@@ -84,7 +85,7 @@ function MissionsList() {
                 <strong>Pregunta:</strong> {selectedMission.pregunta}
               </p>
 
-              <button className="mission-btn">Aceptar misión</button>
+              <Link to={`/mission/${selectedMission.idQuests}`}><button className="mission-btn">Aceptar misión</button></Link>
             </div>
           </div>
         )}
