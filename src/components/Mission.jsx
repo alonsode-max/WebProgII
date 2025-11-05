@@ -1,95 +1,86 @@
-import React, { useEffect, useState } from "react";
-import "../css/Missions.css";
-import Header from "./Header";
+import React, { useEffect, useState } from "react"
+import { getQuestById, getUserById, postRel, updateUser } from "../services/api"
+import { useParams } from "react-router-dom"
 
-function Missions() {
-  const [missions, setMissions] = useState([]);
-  const [selectedMission, setSelectedMission] = useState(null);
+function Mission() {
 
-  useEffect(() => {
-    const exampleMission = [
-      {
-        idQuests: 1,
-        nombre: "El Tesoro del Bosque Antiguo",
-        descripcion:
-          "En los confines del bosque de Eldwyn, se oculta un cofre sellado con magia ancestral. Solo los dignos pueden romper su sello. Tu tarea es encontrar el talismán del druida y usarlo en el altar del claro iluminado.",
-        rango: "A",
-        recompensa: 400,
-        pregunta: "¿Qué criatura custodia el altar del claro?",
-      },
-      {
-        idQuests: 2,
-        nombre: "Sombras en la Fortaleza",
-        descripcion:
-          "Una antigua fortaleza al norte ha sido tomada por bandidos. El gremio necesita exploradores para infiltrarse y obtener información sobre su líder.",
-        rango: "B",
-        recompensa: 300,
-        pregunta: "¿Cuál es el nombre del jefe bandido?",
-      },
-    ];
-    setMissions(exampleMission);
-  }, []);
+    const idUser = localStorage.getItem("id")
+    const { idQuests } = useParams()
+    console.log(idQuests)
+    const [mission, setMission] = useState([])
+    const [answer, setAnswer] = useState([])
 
-  const handleSelect = (mission) => {
-    setSelectedMission(mission);
-  };
+    useEffect(() => {
+        const setQuest = async () => {
+            const data = await getQuestById(idQuests)
+            setMission(data[0])
+        }
+        setQuest()
+    }, [])
 
-  const closeModal = () => {
-    setSelectedMission(null);
-  };
+    const radAnswer = (ev) => {
+        setAnswer(ev.target.value)
+    }
 
-  return (
-    <Header>
-      <div className="missions-page">
-        <div className="missions-overlay"></div>
-        <h1 className="missions-title">Misiones del Gremio</h1>
-        <p className="missions-subtext">
-          Elige tu próximo mision. Cada misión te otorgará experiencia y recompesas.
-        </p>
+    const changeUser = async (user) => {
+        const data = await updateUser(user, user.idUsers)
+        console.log(data)
+    }
 
-        <div className="missions-grid">
-          {missions.map((mission) => (
-            <div
-              key={mission.idQuests}
-              className="mission-card"
-              onClick={() => handleSelect(mission)}
-            >
-              <h3>{mission.nombre}</h3>
-              <p>
-                Dificultad: <strong>{mission.rango}</strong>
-              </p>
-              <p className="mission-summary">
-                {mission.descripcion.slice(0, 80)}...
-              </p>
-            </div>
-          ))}
+    const insertRelation = async (idUser, idQuests) => {
+        const data = await postRel(idQuests, idUser)
+        console.log(data)
+    }
+
+    const handleClick = () => {
+        if (!idUser) {
+            //navegar al home
+        }
+
+        //let user = getUserById(idUser)
+       // let user = getUserById(parseInt(idUser))
+        if (answer === mission.resp) {
+            switch (mission.rango) {
+                case 'S':
+                    user.puntos_xp += 500;
+                    break;
+                case 'A':
+                    user.puntos_xp += 400;
+                    break;
+                case 'B':
+                    user.puntos_xp += 300;
+                    break;
+                case 'C':
+                    user.puntos_xp += 200;
+                    break;
+                case 'D':
+                    user.puntos_xp += 100;
+                    break;
+            }
+            if (user.puntos_xp % 1000 === 0) {
+                user.nivel++;
+            }
+        }
+        changeUser(user)
+        insertRelation(user.idUsers, mission.idQuests)
+    }
+
+
+    return (
+        <div className="mission-card">
+            <h3 style={styles.cardTitle}>{mission.nombre}</h3>
+
+            <p style={styles.cardText}>{mission.pregunta}</p>
+            <input type="radio" name="Options" id={mission.sol2} onClick={radAnswer} value={mission.sol2} /> <label htmlFor={mission.sol2}>{mission.sol2} </label>
+            <input type="radio" name="Options" id={mission.sol3} onClick={radAnswer} value={mission.sol3} /> <label htmlFor={mission.sol3}>{mission.sol3} </label>
+            <input type="radio" name="Options" id={mission.sol4} onClick={radAnswer} value={mission.sol4} /> <label htmlFor={mission.sol4}>{mission.sol4} </label>
+            <input type="radio" name="Options" id={mission.sol1} onClick={radAnswer} value={mission.sol1} /> <label htmlFor={mission.sol1}>{mission.sol1} </label>
+            <button onClick={handleClick}>Enviar</button>
+
+            <p style={styles.cardDifficulty}>
+                <strong>Dificultad:</strong> {mission.rango}
+            </p>
         </div>
-
-        {selectedMission && (
-          <div className="mission-modal">
-            <div className="mission-modal-content">
-              <button className="close-btn" onClick={closeModal}>
-                ✕
-              </button>
-              <h2>{selectedMission.nombre}</h2>
-              <p className="modal-diff">
-                <strong>Dificultad:</strong> {selectedMission.rango}
-              </p>
-              <p className="modal-text">{selectedMission.descripcion}</p>
-              <p>
-                <strong>Recompensa:</strong> +{selectedMission.recompensa} XP
-              </p>
-              <p>
-                <strong>Pregunta:</strong> {selectedMission.pregunta}
-              </p>
-
-              <button className="mission-btn">Aceptar misión</button>
-            </div>
-          </div>
-        )}
-      </div>
-    </Header>
-  );
+    )
 }
-
-export default Missions;
+export default Mission;

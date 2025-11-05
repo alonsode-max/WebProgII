@@ -16,7 +16,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/missions" element={<Mission />} />
+        <Route path="/missions" element={<MissionList />} />
         <Route path="/mission/:idQuests" element={<Mission />} />
         <Route path="/login" element={<Login userLogin={setUserLogin} />} />
         <Route path="/register" element={<Register />} />
