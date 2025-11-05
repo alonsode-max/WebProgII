@@ -2,13 +2,15 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import "../css/Login.css";
 import Header from "./Header";
+import { useNavigate } from "react-router-dom";
 
 const initialLogin = { email: "", password: "" };
 const initialRegister = { nombre: "", apellido: "", email: "", password: "" };
 
 function Login() {
+  const navigate = useNavigate()
   const { login, logout } = useContext(UserContext);
-  const [activeTab, setActiveTab] = useState("login"); 
+  const [activeTab, setActiveTab] = useState("login");
   const [user, setUser] = useState(initialLogin);
   const [formData, setFormData] = useState(initialRegister);
   const [error, setError] = useState("");
@@ -39,6 +41,9 @@ function Login() {
     if (!success) {
       setError("Email o contraseña incorrectos.");
       return;
+    }
+    else {
+      navigate("/")
     }
 
     setError("");
@@ -89,73 +94,73 @@ function Login() {
 
   return (
     <Header>
-    <div className="login-page">
-      <div className="login-card">
-        <h2 className="login-title">Gremio de Aventureros</h2>
+      <div className="login-page">
+        <div className="login-card">
+          <h2 className="login-title">Gremio de Aventureros</h2>
 
-        <div className="tabs">
-          <button
-            className={activeTab === "login" ? "tab active" : "tab"}
-            onClick={() => setActiveTab("login")}
-          >
-            Iniciar sesión
-          </button>
-          <button
-            className={activeTab === "register" ? "tab active" : "tab"}
-            onClick={() => setActiveTab("register")}
-          >
-            Registrarse
-          </button>
+          <div className="tabs">
+            <button
+              className={activeTab === "login" ? "tab active" : "tab"}
+              onClick={() => setActiveTab("login")}
+            >
+              Iniciar sesión
+            </button>
+            <button
+              className={activeTab === "register" ? "tab active" : "tab"}
+              onClick={() => setActiveTab("register")}
+            >
+              Registrarse
+            </button>
+          </div>
+
+          {activeTab === "login" && (
+            <form onSubmit={handleLogin} className="form-section">
+              <label>Email</label>
+              <input
+                type="email"
+                id="email"
+                onChange={handleInputChange}
+                value={user.email}
+                placeholder="tuemail@aventura.com"
+              />
+              <label>Contraseña</label>
+              <input
+                type="password"
+                id="password"
+                onChange={handleInputChange}
+                value={user.password}
+              />
+              <input type="submit" value="Entrar" className="btn" />
+              {error && <p className="error-text">{error}</p>}
+            </form>
+          )}
+
+          {activeTab === "register" && (
+            <form onSubmit={handleRegister} className="form-section">
+              <label>Nombre</label>
+              <input type="text" id="nombre" onChange={handleInputChange} value={formData.nombre} />
+              <label>Apellidos</label>
+              <input type="text" id="apellido" onChange={handleInputChange} value={formData.apellido} />
+              <label>Email</label>
+              <input type="email" id="email" onChange={handleInputChange} value={formData.email} />
+              <label>Contraseña</label>
+              <input
+                type="password"
+                id="password"
+                onChange={handleInputChange}
+                value={formData.password}
+              />
+              <input type="submit" value="Registrarse" className="btn" />
+            </form>
+          )}
+
+          {serverMessage && (
+            <p className={status === "success" ? "success-text" : "error-text"}>
+              {serverMessage}
+            </p>
+          )}
         </div>
-
-        {activeTab === "login" && (
-          <form onSubmit={handleLogin} className="form-section">
-            <label>Email</label>
-            <input
-              type="email"
-              id="email"
-              onChange={handleInputChange}
-              value={user.email}
-              placeholder="tuemail@aventura.com"
-            />
-            <label>Contraseña</label>
-            <input
-              type="password"
-              id="password"
-              onChange={handleInputChange}
-              value={user.password}
-            />
-            <input type="submit" value="Entrar" className="btn" />
-            {error && <p className="error-text">{error}</p>}
-          </form>
-        )}
-
-        {activeTab === "register" && (
-          <form onSubmit={handleRegister} className="form-section">
-            <label>Nombre</label>
-            <input type="text" id="nombre" onChange={handleInputChange} value={formData.nombre} />
-            <label>Apellidos</label>
-            <input type="text" id="apellido" onChange={handleInputChange} value={formData.apellido} />
-            <label>Email</label>
-            <input type="email" id="email" onChange={handleInputChange} value={formData.email} />
-            <label>Contraseña</label>
-            <input
-              type="password"
-              id="password"
-              onChange={handleInputChange}
-              value={formData.password}
-            />
-            <input type="submit" value="Registrarse" className="btn" />
-          </form>
-        )}
-
-        {serverMessage && (
-          <p className={status === "success" ? "success-text" : "error-text"}>
-            {serverMessage}
-          </p>
-        )}
       </div>
-    </div>
     </Header>
   );
 }

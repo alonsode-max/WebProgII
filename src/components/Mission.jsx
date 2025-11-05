@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { getQuestById, getUserById, postRel, updateUser } from "../services/api"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 
 function Mission() {
 
+    let navigate = useNavigate()
     let idUser = localStorage.getItem("id")
     idUser = parseInt(idUser)
     const { idQuests } = useParams()
@@ -35,7 +36,7 @@ function Mission() {
 
     const handleClick = async () => {
         if (!idUser) {
-            //navegar al home
+            navigate("/login")
         }
         else {
             const user = await getUserById(parseInt(idUser))
