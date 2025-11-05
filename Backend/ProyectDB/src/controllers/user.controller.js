@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt")
-const { insertUser, selectByEmail, updateUser, searchUserById, insertRelation } = require("../models/user.models")
+const { insertUser, selectByEmail, updateUser, searchUserById, insertRelation, LeaderBoard } = require("../models/user.models")
 const { createToken } = require("../utilities/jwt")
 
 const registerUser = async (req, res) => {
@@ -91,7 +91,15 @@ const getUserById = async (req, res) => {
         res.status(500).json({ success: false, msg: error })
     }
 }
+const getLeaderBoard= async (req, res) => {
+    try {
+      const users = await LeaderBoard();
+      res.json(users);
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ message: "Error al obtener los usuarios" });
+    }
+  };
 
 
-
-module.exports = { registerUser, login, editUser, getUserById, addRelation }
+module.exports = { registerUser, login, editUser, getUserById, addRelation ,getLeaderBoard}

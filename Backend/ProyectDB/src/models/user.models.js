@@ -43,5 +43,12 @@ const insertRelation = async (rel) => {
     return result
 }
 
+const LeaderBoard = async () => {
+  const query = "SELECT * FROM usuarios ORDER BY puntuacion DESC";
+  const [result] = await pool.query(query);
+  return result;
+};
 
-module.exports = { insertUser, selectByEmail, login, searchUserById, updateUser, insertRelation }
+
+
+module.exports = { insertUser, selectByEmail, login, searchUserById, updateUser, insertRelation,LeaderBoard }
