@@ -44,7 +44,7 @@ function Missions() {
         <div className="missions-overlay"></div>
         <h1 className="missions-title">Misiones del Gremio</h1>
         <p className="missions-subtext">
-          Elige tu próximo desafío, aventurero. Cada misión te otorgará experiencia y honor.
+          Elige tu próximo mision. Cada misión te otorgará experiencia y recompesas.
         </p>
 
         <div className="missions-grid">
