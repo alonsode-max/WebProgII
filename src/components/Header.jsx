@@ -26,7 +26,6 @@ const styles = {
   header: {
     height: "100vh",
     width: "100vw",
-    backgroundImage: "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80')",
     backgroundSize: "cover",
     backgroundPosition: "center",
     display: "flex",
