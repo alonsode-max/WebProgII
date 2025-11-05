@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react"
 import { getQuestById, getUserById, postRel, updateUser } from "../services/api"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+
 
 function Mission() {
 
-    const idUser = localStorage.getItem("id")
+    let navigate = useNavigate()
+    let idUser = localStorage.getItem("id")
+    idUser = parseInt(idUser)
     const { idQuests } = useParams()
-    console.log(idQuests)
     const [mission, setMission] = useState([])
     const [answer, setAnswer] = useState([])
 
@@ -32,41 +34,42 @@ function Mission() {
         console.log(data)
     }
 
-    const handleClick = () => {
+    const handleClick = async () => {
         if (!idUser) {
-            //navegar al home
+            navigate("/login")
         }
-
-        let user = getUserById(parseInt(idUser))
-        if (answer === mission.resp) {
-            switch (mission.rango) {
-                case 'S':
-                    user.puntos_xp += 500;
-                    break;
-                case 'A':
-                    user.puntos_xp += 400;
-                    break;
-                case 'B':
-                    user.puntos_xp += 300;
-                    break;
-                case 'C':
-                    user.puntos_xp += 200;
-                    break;
-                case 'D':
-                    user.puntos_xp += 100;
-                    break;
+        else {
+            const user = await getUserById(parseInt(idUser))
+            if (answer === mission.resp) {
+                switch (mission.rango) {
+                    case 'S':
+                        user.puntos_xp += 500;
+                        break;
+                    case 'A':
+                        user.puntos_xp += 400;
+                        break;
+                    case 'B':
+                        user.puntos_xp += 300;
+                        break;
+                    case 'C':
+                        user.puntos_xp += 200;
+                        break;
+                    case 'D':
+                        user.puntos_xp += 100;
+                        break;
+                }
+                if (user.puntos_xp % 1000 === 0) {
+                    user.nivel++;
+                }
             }
-            if (user.puntos_xp % 1000 === 0) {
-                user.nivel++;
-            }
+            changeUser(user)
+            insertRelation(user.idUsers, mission.idQuests)
         }
-        changeUser(user)
-        insertRelation(user.idUsers, mission.idQuests)
     }
 
 
     return (
-        <div className="mission-card" style={styles.card}>
+        <div className="mission-card">
             <h3 style={styles.cardTitle}>{mission.nombre}</h3>
 
             <p style={styles.cardText}>{mission.pregunta}</p>
@@ -152,4 +155,4 @@ const styles = {
     },
 };
 
-export default Mission
+export default Mission;
