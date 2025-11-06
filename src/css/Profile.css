@@ -8,55 +8,49 @@
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  padding: 4rem 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 6rem; /* 🟡 espacio para que el header no tape el contenido */
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .profile-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(rgba(245, 238, 210, 0.25), rgba(180, 150, 90, 0.45));
+  background: radial-gradient(rgba(245, 238, 210, 0.3), rgba(180, 150, 90, 0.5));
+  backdrop-filter: blur(2px);
   z-index: 0;
 }
 
 .main-profile-container {
   position: relative;
   z-index: 1;
-  background-color: rgba(255, 250, 240, 0.92);
-  border: 3px solid #b8860b;
-  border-radius: 16px;
-  padding: 3rem 2rem;
-  max-width: 800px;
-  width: 90%;
-  text-align: center;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 250, 240, 0.9);
   background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+  border: 3px solid #b8860b;
+  border-radius: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  max-width: 700px;
+  width: 100%;
+  padding: 2rem 3rem;
+  text-align: center;
   font-family: 'Spectral', serif;
-  animation: fadeInUp 1s ease;
 }
 
 .profile-title {
   font-family: 'Cinzel Decorative', serif;
-  font-size: 2.4rem;
+  font-size: 2.6rem;
   color: #3b220a;
+  margin-bottom: 1.5rem;
   text-shadow: 2px 2px #fff3, 0 0 10px #d4af37;
-  margin-bottom: 2rem;
-}
-
-.profile-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.4rem;
 }
 
 .profile-avatar-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 1.5rem;
 }
 
 .profile-avatar {
@@ -64,59 +58,129 @@
   height: 120px;
   border-radius: 50%;
   border: 3px solid #b8860b;
-  box-shadow: 0 4px 10px #0003;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  object-fit: cover;
   margin-bottom: 1rem;
 }
 
 .profile-username {
   font-family: 'Cinzel Decorative', serif;
-  color: #3b220a;
   font-size: 1.6rem;
-  text-shadow: 1px 1px #fff3;
+  color: #3b220a;
 }
 
 .profile-info {
+  background-color: rgba(255, 250, 240, 0.8);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
   text-align: left;
-  background-color: rgba(255, 255, 240, 0.75);
-  border-radius: 10px;
+  margin-bottom: 1.5rem;
   border-left: 4px solid #b8860b;
-  padding: 1.2rem;
-  width: 100%;
-  line-height: 1.8;
-  color: #2c1a0a;
 }
 
-.profile-info strong {
-  color: #7a4e2b;
+.profile-info p {
+  margin: 0.5rem 0;
+  color: #2c1a0a;
+  font-size: 1rem;
+}
+
+.profile-info label {
+  display: flex;
+  flex-direction: column;
+  color: #3b220a;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.profile-info input {
+  margin-top: 0.3rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #b8860b;
+  font-family: 'Spectral', serif;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 240, 0.9);
 }
 
 .profile-actions {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
-  margin-top: 1.5rem;
 }
 
-
-.edit-btn,
-.logout-btn {
-  background-color: #7a4e2b;
-  color: #fff;
+.profile-actions button {
+  font-family: 'Cinzel Decorative', serif;
+  padding: 0.6rem 1.4rem;
   border: none;
   border-radius: 10px;
-  padding: 0.8rem 1.4rem;
-  font-family: 'Cinzel Decorative', serif;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 1rem;
 }
 
-.edit-btn:hover,
-.logout-btn:hover {
+.edit-btn {
+  background-color: #d4af37;
+  color: #3b220a;
+}
+
+.edit-btn:hover {
   background-color: #b8860b;
-  transform: scale(1.05);
+  color: #fff;
 }
 
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+.save-btn {
+  background-color: #4caf50;
+  color: #fff;
 }
 
+.save-btn:hover {
+  background-color: #45a049;
+}
+
+.cancel-btn {
+  background-color: #bbb;
+  color: #3b220a;
+}
+
+.cancel-btn:hover {
+  background-color: #999;
+}
+
+.delete-btn {
+  background-color: #b22222;
+  color: #fff;
+}
+
+.delete-btn:hover {
+  background-color: #a91e1e;
+}
+
+.logout-btn {
+  background-color: #3b220a;
+  color: #fff;
+}
+
+.logout-btn:hover {
+  background-color: #5a3515;
+}
+
+@media (max-width: 768px) {
+  .main-profile-container {
+    padding: 1.5rem;
+  }
+
+  .profile-title {
+    font-size: 2rem;
+  }
+
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-actions button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1.1rem;
+  }
+}

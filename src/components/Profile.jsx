@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import Header from "../components/Header";
-import { updateUser, deleteUser } from "../services/api"; 
+import { updateUser, deleteUser } from "../services/api";
+import "../css/Profile.css"
 
 function Profile() {
   const { userLog, logout, setUserLog } = useContext(UserContext);
@@ -50,7 +51,7 @@ function Profile() {
           <div className="profile-card">
             <div className="profile-avatar-container">
               <img
-                src={userLog.avatar }
+                src={userLog.avatar}
                 alt="Foto de perfil"
                 className="profile-avatar"
               />
@@ -63,19 +64,19 @@ function Profile() {
               {editMode ? (
                 <>
                   <label >Nombre:
-                    <input type="text" name="nombre" value={formData.nombre} onChange={handleChange}/>
+                    <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} />
                   </label>
 
-                   <label >Apellido:
-                  <input type="text" name="apellido" value={formData.apellido} onChange={handleChange} />
+                  <label >Apellido:
+                    <input type="text" name="apellido" value={formData.apellido} onChange={handleChange} />
                   </label>
 
                   <label >Email:
-                  <input type="email" name="email" value={formData.email} onChange={handleChange} />
+                    <input type="email" name="email" value={formData.email} onChange={handleChange} />
                   </label>
 
                   <label >Contraseña:
-                  <input type="text" name="password" value={formData.password} onChange={handleChange} />
+                    <input type="text" name="password" value={formData.password} onChange={handleChange} />
                   </label>
                 </>
               ) : (

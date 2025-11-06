@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Spectral&display=swap');
+
+.mission-form-page {
+    background-image: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 1rem;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.mission-form-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(rgba(245, 238, 210, 0.3), rgba(180, 150, 90, 0.5));
+    backdrop-filter: blur(2px);
+    z-index: 0;
+}
+
+.mission-form-container {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 250, 240, 0.95);
+    background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+    border: 3px solid #b8860b;
+    border-radius: 20px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 550px;
+    text-align: center;
+    font-family: 'Spectral', serif;
+}
+
+.mission-form-container h2 {
+    font-family: 'Cinzel Decorative', serif;
+    color: #3b220a;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 1px 1px #fff3, 0 0 10px #d4af37;
+}
+
+.mission-form-container input[type="text"],
+.mission-form-container textarea,
+.mission-form-container select,
+.mission-form-container input[type="file"] {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 1rem;
+    border: 2px solid #b8860b;
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: #fffaf0;
+    font-family: 'Spectral', serif;
+    color: #2c1a0a;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mission-form-container select:focus {
+    outline: none;
+    border-color: #d4af37;
+    box-shadow: 0 0 5px #d4af37;
+}
+
+.mission-form-container textarea {
+    resize: none;
+    height: 100px;
+}
+
+.mission-form-container button {
+    background-color: #b8860b;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-family: 'Cinzel Decorative', serif;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
