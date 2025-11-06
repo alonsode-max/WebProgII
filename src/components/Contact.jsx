@@ -16,7 +16,7 @@ function Contact() {
             Estamos aquí para escucharte. Puedes escribirnos a través de este correo:
           </p>
 
-          <p className="contact-email">📧 MissionHeroes@gmail.com</p>
+          <p className="contact-email">MissionHeroes@gmail.com</p>
 
           <p className="contact-text">
             También puedes contactarnos para proponer nuevas misiones, colaborar
