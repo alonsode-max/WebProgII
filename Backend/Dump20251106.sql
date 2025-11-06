@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `webprogdb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE  IF NOT EXISTS `webprogdb` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `webprogdb`;
 -- MySQL dump 10.13  Distrib 8.0.43, for Win64 (x86_64)
 --
--- Host: localhost    Database: proyecto_base_web
+-- Host: localhost    Database: webprogdb
 -- ------------------------------------------------------
 -- Server version	8.0.43
 
@@ -74,6 +74,7 @@ CREATE TABLE `quests_has_users` (
 
 LOCK TABLES `quests_has_users` WRITE;
 /*!40000 ALTER TABLE `quests_has_users` DISABLE KEYS */;
+INSERT INTO `quests_has_users` VALUES (1,6);
 /*!40000 ALTER TABLE `quests_has_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +97,7 @@ CREATE TABLE `users` (
   `nombre_usuario` varchar(255) NOT NULL,
   PRIMARY KEY (`idUsers`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +106,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Rick','Sanchez','carac@ola.es','$2b$10$/6CMdYBQmIyTql.9rFLRouGcBlAj6tfaYi8boddzeu0O6U5rvzEga',0,1,'U','rick_sanchez');
+INSERT INTO `users` VALUES (1,'Rick','Sanchez','carac@ola.es','$2b$10$/6CMdYBQmIyTql.9rFLRouGcBlAj6tfaYi8boddzeu0O6U5rvzEga',0,4,'U','rick_sanchez'),(6,'orlando','bermudez','orlando@gmail.com','$2b$10$vbMehe2J7aDk0z5T7mNBWugrda9cXj3vH/kTc6dAJN3grU7ucoe22',0,1,'U','orlandog'),(7,'admin','admin','admin@gmail.com','$2b$10$pxzT5rzN.PKQWhR6M1M7xe76DhCqDrImVASCINJnGC8RNTjktGmDW',0,1,'A','admin'),(9,'luis','fer','luisfer@gmail.com','$2b$10$38VrZimyCvV3OmAF2n47A.5YQfHP8.trOduVIbBfKrll3yqilAxqO',0,1,'U','luis_fer');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -118,4 +119,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-04 21:23:59
+-- Dump completed on 2025-11-06  2:00:58
