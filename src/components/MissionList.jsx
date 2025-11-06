@@ -12,7 +12,7 @@ function MissionsList() {
   useEffect(() => {
     if (userId) {
       const setQuests = async () => {
-        const data = await getFilteredQuests(parseInt(userId))
+        const data = await getAllQuests()
         setMissions(data)
       }
       setQuests();
@@ -20,10 +20,12 @@ function MissionsList() {
     else {
       const setQuests = async () => {
         const data = await getAllQuests()
+        console.log(data)
         setMissions(data)
       }
       setQuests();
     }
+
   }, []);
 
   const handleSelect = (mission) => {

@@ -1,4 +1,4 @@
-const { getQuests, searchQuestById, eraseQ, insertQuest, getQuestUser, getNotQuestUser } = require("../models/quests.models")
+const { getQuests, searchQuestById, eraseQ, insertQuest, getQuestUser } = require("../models/quests.models")
 
 const getAllQuests = async (req, res) => {
     try {
@@ -58,17 +58,6 @@ const getQuestById = async (req, res) => {
     }
 }
 
-const getNotQuestsByUser = async (req, res) => {
-    try {
-        const { id } = req.params
-        const result = await getNotQuestUser(id)
-        res.status(200).json({ data: result })
-    } catch (error) {
-        res.status(500).json(error)
-        console.log(error)
-    }
-}
-
 const getQuestsByUser = async (req, res) => {
     try {
         const { id } = req.params
@@ -94,4 +83,4 @@ const AddQuest = async (req, res) => {
 }
 
 
-module.exports = { getAllQuests, eraseQuest, changeQuest, getQuestById, AddQuest, getNotQuestsByUser, getQuestUser }
+module.exports = { getAllQuests, eraseQuest, changeQuest, getQuestById, AddQuest, getQuestsByUser }
