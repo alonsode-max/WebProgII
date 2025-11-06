@@ -5,11 +5,11 @@ import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 
 const initialLogin = { email: "", password: "" };
-const initialRegister = { nombre: "", apellido: "", email: "", password: "" };
+const initialRegister = { nombre: "", apellido: "", email: "", password: "", nombre_usuario:"" };
 
 function Login() {
   const navigate = useNavigate()
-  const { login, logout } = useContext(UserContext);
+  const { login,userLog} = useContext(UserContext);
   const [activeTab, setActiveTab] = useState("login");
   const [user, setUser] = useState(initialLogin);
   const [formData, setFormData] = useState(initialRegister);
@@ -43,7 +43,7 @@ function Login() {
       return;
     }
     else {
-      navigate("/")
+      navigate("/profile")
     }
 
     setError("");
@@ -54,7 +54,7 @@ function Login() {
   const handleRegister = async (ev) => {
     ev.preventDefault();
 
-    if (!formData.nombre || !formData.apellido || !formData.email || !formData.password) {
+    if (!formData.nombre || !formData.apellido || !formData.email || !formData.password || !formData.nombre_usuario) {
       alert("Por favor, completa todos los campos.");
       return;
     }
@@ -139,17 +139,19 @@ function Login() {
             <form onSubmit={handleRegister} className="form-section">
               <label>Nombre</label>
               <input type="text" id="nombre" onChange={handleInputChange} value={formData.nombre} />
+
               <label>Apellidos</label>
               <input type="text" id="apellido" onChange={handleInputChange} value={formData.apellido} />
+
               <label>Email</label>
               <input type="email" id="email" onChange={handleInputChange} value={formData.email} />
+
               <label>Contraseña</label>
-              <input
-                type="password"
-                id="password"
-                onChange={handleInputChange}
-                value={formData.password}
-              />
+              <input type="password" id="password" onChange={handleInputChange} value={formData.password}/>
+
+              <label>Nombre de usuario</label>
+              <input type="text" id="nombre_usuario" onChange={handleInputChange} value={formData.nombre_usuario} />
+
               <input type="submit" value="Registrarse" className="btn" />
             </form>
           )}

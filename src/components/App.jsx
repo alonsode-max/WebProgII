@@ -1,16 +1,21 @@
 import Home from "./Home";
 import Login from "./Login";
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import About from "./About";
 import Contact from "./Contact";
 import MissionList from "./MissionList";
 import Register from "./Register";
 import Mission from "./Mission";
+import Profile from "./Profile";
+import { UserContext } from '../context/UserContext'
+import AuthRoute from "./AuthRoute";
+import Admin from "./Admin";
+import LeaderBoard from "./LeaderBoard";
 
 
 function App() {
-  const [userLogin, setUserLogin] = useState(null)
+  const { userLog } = useContext(UserContext)
 
   return (
     <>
@@ -18,10 +23,16 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/missions" element={<MissionList />} />
         <Route path="/mission/:idQuests" element={<Mission />} />
-        <Route path="/login" element={<Login userLogin={setUserLogin} />} />
+        <Route path="/login" element={<Login userLog={userLog}/>} />
         <Route path="/register" element={<Register />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/profile" element={<AuthRoute
+          user={userLog}
+          defaultComponent={<Profile userLogin={userLog}/>}
+          adminComponent={<Admin userLogin={userLog}/>}
+        />}/>
+        <Route path="/leaderboard" element={<LeaderBoard />} />
       </Routes>
     </>
   )

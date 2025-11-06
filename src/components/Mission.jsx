@@ -40,6 +40,7 @@ function Mission() {
         }
         else {
             const user = await getUserById(parseInt(idUser))
+            console.log(user)
             if (answer === mission.resp) {
                 switch (mission.rango) {
                     case 'S':

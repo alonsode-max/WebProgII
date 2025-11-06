@@ -1,7 +1,8 @@
+import React from 'react'
 import MissionForm from "./MissionForm";
 
-function Admin({ user }) {
-    if (!user || !user.isAdmin) {
+function Admin({ userLogin }) {
+    if (!userLogin) {
         return (
             <p style={styles.denied}>Acceso denegado</p>
         );
@@ -31,7 +32,8 @@ const styles = {
         color: "#5b2e0c",
     },
     denied: {
-        displayflex: "center",
+        display:"flex",
+        justify_content: "center",
         color: "#5b2e0c",
         textAlign: "center",
         marginTop: "2rem",

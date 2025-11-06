@@ -87,3 +87,17 @@ html, body {
   overflow: hidden;
   text-align: center;
 }
+
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: #f55;
+  cursor: pointer;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.logout-btn:hover {
+  color: #ff7b7b;
+}
