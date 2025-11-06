@@ -2,18 +2,28 @@ import React, { useEffect, useState } from "react";
 import "../css/MissionsList.css";
 import Header from "./Header";
 import { Link } from "react-router-dom";
-import { getAllQuests } from "../services/api";
+import { getAllQuests, getFilteredQuests } from "../services/api";
 
 function MissionsList() {
   const [missions, setMissions] = useState([]);
   const [selectedMission, setSelectedMission] = useState(null);
+  const userId = localStorage.getItem("id")
 
   useEffect(() => {
-    const setQuests = async () => {
-      const data = await getAllQuests()
-      setMissions(data)
+    if (userId) {
+      const setQuests = async () => {
+        const data = await getFilteredQuests(parseInt(userId))
+        setMissions(data)
+      }
+      setQuests();
     }
-    setQuests();
+    else {
+      const setQuests = async () => {
+        const data = await getAllQuests()
+        setMissions(data)
+      }
+      setQuests();
+    }
   }, []);
 
   const handleSelect = (mission) => {

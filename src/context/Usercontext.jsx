@@ -7,9 +7,9 @@ export const UserContext = createContext()
 
 export const UserProvider = ({ children }) => {
 
-    const [userLog, setUserLog] = useState(null)
+  const [userLog, setUserLog] = useState(null)
 
-     useEffect(() => {
+  useEffect(() => {
     const token = localStorage.getItem("token");
     const userData = localStorage.getItem("user");
 
@@ -24,26 +24,25 @@ export const UserProvider = ({ children }) => {
     }
   }, []);
 
-    const login = async (user) => {
-        const data = await postLogin(user)
-        if (data.success === true) {
-            console.log(data.success, data.token)
-            localStorage.setItem("token", data.token);
-            localStorage.setItem("user", JSON.stringify(data.user));
-            localStorage.setItem("id", data.user.id);
-            setUserLog(data.user);
-            return true;
-        }
-        return false;
+  const login = async (user) => {
+    const data = await postLogin(user)
+    if (data.success === true) {
+      console.log(data.success, data.token)
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem("id", data.user.id);
+      setUserLog(data.user);
+      return true;
     }
+    return false;
+  }
 
-    const logout = () => {
-        setUserLog(null)
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-    }
+  const logout = () => {
+    setUserLog(null)
+    localStorage.clear()
+  }
 
-    return (<UserContext.Provider value={{ userLog, login, logout, setUserLog }}>
-        {children}
-    </UserContext.Provider>);
+  return (<UserContext.Provider value={{ userLog, login, logout, setUserLog }}>
+    {children}
+  </UserContext.Provider>);
 }

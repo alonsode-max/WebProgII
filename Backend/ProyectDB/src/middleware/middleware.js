@@ -30,6 +30,8 @@ const checkAdmin = (req, res, next) => {
 }
 
 
+
+
 //middleware plan id existe
 
 module.exports = { authUser, checkAdmin }

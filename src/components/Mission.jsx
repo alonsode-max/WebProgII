@@ -40,8 +40,9 @@ function Mission() {
         }
         else {
             const user = await getUserById(parseInt(idUser))
-            console.log(user)
+            delete user.password
             if (answer === mission.resp) {
+                alert("Respuesta correcta")
                 switch (mission.rango) {
                     case 'S':
                         user.puntos_xp += 500;
@@ -61,8 +62,12 @@ function Mission() {
                 }
                 user.nivel = parseInt(user.puntos_xp / 1000)
             }
+            else {
+                alert("Respuesta incorrecta")
+            }
             changeUser(user)
             insertRelation(user.idUsers, mission.idQuests)
+            navigate("/missions")
         }
     }
 

@@ -31,8 +31,14 @@ const updateQuest = async (id, quest) => {
     }
 }
 
+const getNotQuestUser = async (id) => {
+    const select = "SELECT q.nombre AS nombre, q.idQuests AS idQuests, q.rango AS rango, q.descrip AS descrip FROM quests AS q INNER JOIN quests_has_users AS qu on q.idQuests != qu.quests_idQuests INNER JOIN users AS u ON u.idUsers = qu.users_idUsers where u.idUsers = 12";
+    const [result] = await pool.query(select, id)
+    return result
+}
+
 const getQuestUser = async (id) => {
-    const select = "SELECT q.nombre AS nombre_quest, q.puntos AS puntos_quest, q.rango AS rango_quests FROM quests AS q INNER JOIN quests_has_users AS qu on q.idQuests = qu.quests_idQuests INNER JOIN users AS u ON u.idUsers = qu.users_idUsers where u.idUsers = ?";
+    const select = "SELECT q.nombre AS nombre, q.idQuests AS idQuests, q.rango AS rango, q.descrip AS descrip FROM quests AS q INNER JOIN quests_has_users AS qu on q.idQuests = qu.quests_idQuests INNER JOIN users AS u ON u.idUsers = qu.users_idUsers where u.idUsers = 12";
     const [result] = await pool.query(select, id)
     return result
 }
@@ -44,4 +50,4 @@ const insertQuest = async (quest) => {
     return result
 }
 
-module.exports = { searchQuestById, getQuests, eraseQ, updateQuest, insertQuest, getQuestUser }
+module.exports = { searchQuestById, getQuests, eraseQ, updateQuest, insertQuest, getQuestUser, getNotQuestUser }
