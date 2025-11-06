@@ -22,7 +22,7 @@ function Header({ children }) {
           <Link to="/missions" className="header-link">Missions</Link>
           <Link to="/about" className="header-link">About</Link>
           <Link to="/contact" className="header-link">Contact</Link>
-
+          
           {userLog ? (
             <>
               <Link to="/profile" className="header-link">Profile</Link>

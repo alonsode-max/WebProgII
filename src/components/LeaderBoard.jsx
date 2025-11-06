@@ -22,7 +22,7 @@ function LeaderBoard() {
   
   return (
     <div className="leaderboard-container">
-      <h2 className="leaderboard-title">🏆 Clasificación de Aventureros</h2>
+      <h2 className="leaderboard-title">Clasificación de Aventureros</h2>
 
       <div className="filter-buttons">
         <button
