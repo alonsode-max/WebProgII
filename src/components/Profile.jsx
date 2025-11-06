@@ -1,13 +1,25 @@
-import React, { useContext, useState } from "react";
-import { UserContext } from "../context/UserContext";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../components/Header";
-import { updateUser, deleteUser } from "../services/api";
+import { updateUser, deleteUser, getUserById } from "../services/api";
 import "../css/Profile.css"
+import { UserContext } from "../context/Usercontext";
 
 function Profile() {
-  const { userLog, logout, setUserLog } = useContext(UserContext);
+  const [profile, setProfile] = useState({})
   const [editMode, setEditMode] = useState(false);
-  const [formData, setFormData] = useState(userLog || {});
+  const user = localStorage.getItem("user")
+  const idUser = localStorage.getItem("id")
+  console.log(idUser)
+  const [formData, setFormData] = useState(user || {});
+
+
+  useEffect(() => {
+    const setUser = async () => {
+      const data = await getUserById(idUser)
+      setProfile(data)
+    }
+    setUser()
+  }, [])
 
   const handleLogout = () => logout();
 
@@ -19,7 +31,7 @@ function Profile() {
   };
 
   const handleEdit = async () => {
-    const resp = await updateUser(formData, userLog.id);
+    const resp = await updateUser(formData, idUser);
     if (resp.success) {
       alert("Perfil actualizado correctamente");
       setUserLog(formData);
@@ -31,7 +43,7 @@ function Profile() {
 
   const handleDelete = async () => {
     if (window.confirm("¿Seguro que deseas eliminar tu cuenta? Esta acción no se puede deshacer.")) {
-      const resp = await deleteUser(userLog.id);
+      const resp = await deleteUser(idUser);
       if (resp.success) {
         alert("Usuario eliminado correctamente");
         logout();
@@ -50,13 +62,8 @@ function Profile() {
 
           <div className="profile-card">
             <div className="profile-avatar-container">
-              <img
-                src={userLog.avatar}
-                alt="Foto de perfil"
-                className="profile-avatar"
-              />
               <h2 className="profile-username">
-                {userLog.nombre_usuario || "Usuario sin nombre"}
+                {profile.nombre_usuario || "Usuario sin nombre"}
               </h2>
             </div>
 
@@ -81,12 +88,12 @@ function Profile() {
                 </>
               ) : (
                 <>
-                  <p><strong>ID:</strong> {userLog.id}</p>
-                  <p><strong>Nombre:</strong> {userLog.nombre}</p>
-                  <p><strong>Correo:</strong> {userLog.email}</p>
-                  <p><strong>Rol:</strong> {userLog.rol}</p>
-                  <p><strong>Nivel:</strong> {userLog.nivel}</p>
-                  <p><strong>XP:</strong> {userLog.puntos_xp}</p>
+                  <p><strong>ID:</strong> {profile.id}</p>
+                  <p><strong>Nombre:</strong> {profile.nombre}</p>
+                  <p><strong>Correo:</strong> {profile.email}</p>
+                  <p><strong>Rol:</strong> {profile.rol}</p>
+                  <p><strong>Nivel:</strong> {profile.nivel}</p>
+                  <p><strong>XP:</strong> {profile.puntos_xp}</p>
                 </>
               )}
             </div>
