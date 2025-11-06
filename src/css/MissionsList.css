@@ -47,6 +47,7 @@
 }
 
 .missions-grid {
+  color:#3b220a;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.5rem;
@@ -102,6 +103,7 @@
   border-radius: 20px;
   padding: 2rem;
   width: 90%;
+  color:#b8860b;
   max-width: 600px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
   text-align: left;

@@ -16,7 +16,7 @@ export default function MissionForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} classname="mission-form-container">
             <input
                 type="text"
                 placeholder="Título"
@@ -30,15 +30,17 @@ export default function MissionForm() {
                     setMission({ ...mission, description: e.target.value })
                 }
             />
-            <select
+            <select classname="mission-form-container button"
                 value={mission.difficulty}
                 onChange={(e) =>
                     setMission({ ...mission, difficulty: e.target.value })
                 }
             >
-                <option>Fácil</option>
-                <option>Medio</option>
-                <option>Difícil</option>
+                <option>S</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
             </select>
             <input
                 type="file"
