@@ -11,10 +11,11 @@ import Profile from "./Profile";
 import { UserContext } from '../context/UserContext'
 import AuthRoute from "./AuthRoute";
 import Admin from "./Admin";
+import LeaderBoard from "./LeaderBoard";
 
 
 function App() {
-  const { userLog,setUserLog } = useContext(UserContext)
+  const { userLog } = useContext(UserContext)
 
   return (
     <>
@@ -22,7 +23,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/missions" element={<MissionList />} />
         <Route path="/mission/:idQuests" element={<Mission />} />
-        <Route path="/login" element={<Login userLog={userLog} setUserLogin={setUserLog}/>} />
+        <Route path="/login" element={<Login userLog={userLog}/>} />
         <Route path="/register" element={<Register />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
@@ -31,7 +32,7 @@ function App() {
           defaultComponent={<Profile userLogin={userLog}/>}
           adminComponent={<Admin userLogin={userLog}/>}
         />}/>
-
+        <Route path="/leaderboard" element={<LeaderBoard />} />
       </Routes>
     </>
   )

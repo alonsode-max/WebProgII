@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt")
-const { insertUser, selectByEmail, updateUser, searchUserById, insertRelation, LeaderBoard } = require("../models/user.models")
+const { insertUser, selectByEmail, updateUser, searchUserById, insertRelation, LeaderBoard,deleteUserById } = require("../models/user.models")
 const { createToken } = require("../utilities/jwt")
 
 const registerUser = async (req, res) => {
@@ -14,7 +14,7 @@ const registerUser = async (req, res) => {
 
         const result = await insertUser(user)
         return res.status(202).json({ success: true, insertId: result.insertId })
-        console.log(result.insertId)
+   
 
         
     } catch (error) {
@@ -73,24 +73,28 @@ const login = async (req, res) => {
 }
 
 const editUser = async (req, res) => {
-    try {
-        const { id } = req.params
-        const user = req.body
-        const userSelect = await searchUserById(id)
-        if (userSelect.length === 0) {
-            res.status(404).json("Inicia sesión para jugar")
-        }
-        else {
-            const result = await updateUser(id, user)
-            if (result.affectedRows !== 0) {
-                res.status(202).json({ data: "Usuario modificada con exito" })
-            }
-        }
-    } catch (error) {
-        res.status(500).json(error)
-        console.log(error)
+  try {
+    const { id } = req.params;
+    const user = req.body;
+
+    const userSelect = await searchUserById(id);
+    if (userSelect.length === 0) {
+      return res.status(404).json({ success: false, msg: "Usuario no encontrado" });
     }
-}
+
+    const result = await updateUser(id, user);
+
+    if (result.affectedRows !== 0) {
+      return res.status(200).json({ success: true, msg: "Usuario actualizado correctamente" });
+    } else {
+      return res.status(400).json({ success: false, msg: "No se modificó ningún registro" });
+    }
+  } catch (error) {
+    console.error("Error en editUser:", error);
+    res.status(500).json({ success: false, msg: "Error al actualizar usuario" });
+  }
+};
+
 
 const getUserById = async (req, res) => {
     try {
@@ -105,14 +109,35 @@ const getUserById = async (req, res) => {
     }
 }
 const getLeaderBoard = async (req, res) => {
-    try {
-        const users = await LeaderBoard();
-        res.json(users);
-    } catch (error) {
-        console.log(error)
-        res.status(500).json({ message: "Error al obtener los usuarios" });
-    }
+  try {
+    const { type } = req.query; 
+    const users = await LeaderBoard(type);
+    res.json({ success: true, data: users });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Error al obtener los usuarios" });
+  }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userSelect = await searchUserById(id);
 
-module.exports = { registerUser, login, editUser, getUserById, addRelation, getLeaderBoard }
+    if (userSelect.length === 0) {
+      return res.status(404).json({ success: false, msg: "Usuario no encontrado" });
+    }
+
+    const result = await deleteUserById(id);
+    if (result.affectedRows > 0) {
+      return res.status(200).json({ success: true, msg: "Usuario eliminado correctamente" });
+    }
+
+    return res.status(400).json({ success: false, msg: "No se pudo eliminar el usuario" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, msg: "Error al eliminar usuario" });
+  }
+};
+
+module.exports = { registerUser, login, editUser, getUserById, addRelation, getLeaderBoard,deleteUser }

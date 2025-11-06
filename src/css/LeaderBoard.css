@@ -1,0 +1,107 @@
+.leaderboard-container {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(8px);
+  font-family: 'Poppins', sans-serif;
+}
+
+.leaderboard-title {
+  text-align: center;
+  color: #003366;
+  font-size: 2rem;
+  margin-bottom: 25px;
+}
+
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  transition: transform 0.2s, background 0.3s;
+  border: 2px solid #00336610;
+}
+
+.leaderboard-item:hover {
+  transform: scale(1.02);
+  background: #f0f8ff;
+}
+
+.position {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #003366;
+  width: 30px;
+  text-align: center;
+}
+
+.user-info {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.user-info strong {
+  display: block;
+  font-size: 1.1rem;
+  color: #002244;
+}
+
+.xp {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.nivel {
+  font-weight: bold;
+  color: #006699;
+}
+
+.top-1 {
+  background: linear-gradient(135deg, #ffd700, #fff3b0);
+  font-size: 1.3rem;
+  transform: scale(1.05);
+}
+
+.top-2 {
+  background: linear-gradient(135deg, #c0c0c0, #f0f0f0);
+  font-size: 1.2rem;
+}
+
+.top-3 {
+  background: linear-gradient(135deg, #cd7f32, #ffebcd);
+  font-size: 1.1rem;
+}
+
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.filter-buttons button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #333;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-buttons button.active {
+  background: #ffc107;
+  color: #000;
+  font-weight: bold;
+}

@@ -30,6 +30,7 @@ export const UserProvider = ({ children }) => {
             console.log(data.success, data.token)
             localStorage.setItem("token", data.token);
             localStorage.setItem("user", JSON.stringify(data.user));
+            localStorage.setItem("id", data.user.id);
             setUserLog(data.user);
             return true;
         }

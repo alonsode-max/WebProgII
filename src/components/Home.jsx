@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom"; 
 import "../css/Home.css";
 import Header from "./Header";
+import Leaderboard from "./LeaderBoard";
 
 function Home() {
   return (
@@ -22,7 +23,7 @@ function Home() {
           <p className="home-text">
             En esta tabla están los aventureros más valientes y reconocidos del mes.
           </p>
-         <p>LeaderBoard</p>
+         <Leaderboard/>
         </section>
         <section className="home-section">
           <h2 className="home-subtitle">Explora</h2>

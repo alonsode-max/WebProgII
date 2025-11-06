@@ -25,16 +25,25 @@ const selectByEmail = async (email) => {
 
 const searchUserById = async (id) => {
     const sql = "SELECT * FROM users WHERE idUsers =  ?";
-    const [result] = await pool.query(sql, id)
+    const [result] = await pool.query(sql, [id])
     return result;
 }
 
 const updateUser = async (id, user) => {
-    let { nombre, apellido, email, password, puntos_xp, nivel, rol } = user
-    const sql = "UPDATE users SET nombre = ?, apellido=?, email=?, password=?, puntos_xp=?, nivel=?, rol=? WHERE idUsers= ?";
-    const [result] = await pool.query(sql, [nombre, apellido, email, password, puntos_xp, nivel, rol, id])
+  let { nombre, apellido, email, password } = user;
+
+  if (!password) {
+    const sql = "UPDATE users SET nombre = ?, apellido = ?, email = ? WHERE idUsers = ?";
+    const [result] = await pool.query(sql, [nombre, apellido, email, id]);
     return result;
-}
+  } else {
+    const bcrypt = require("bcrypt");
+    const hashed = bcrypt.hashSync(password, 10);
+    const sql = "UPDATE users SET nombre = ?, apellido = ?, email = ?, password = ? WHERE idUsers = ?";
+    const [result] = await pool.query(sql, [nombre, apellido, email, hashed, id]);
+    return result;
+  }
+};
 
 const insertRelation = async (rel) => {
     const { quests_idQuests, users_idUsers } = rel
@@ -43,12 +52,23 @@ const insertRelation = async (rel) => {
     return result
 }
 //los nombres de las variables de sql no estan bien por que no he podido acceder pero el codigo funciona perfectamente seria cambiarlo de puntuacion.
-const LeaderBoard = async () => {
-    const query = "SELECT * FROM users ORDER BY puntuacion DESC";
-    const [result] = await pool.query(query);
-    return result;
+const LeaderBoard = async (type = "top") => {
+  let query = "";
+
+  if (type === "bottom") {
+    query = "SELECT * FROM users WHERE rol = 'U' ORDER BY puntos_xp ASC, nivel ASC LIMIT 10";
+  } else {
+    query = "SELECT * FROM users WHERE rol = 'U' ORDER BY puntos_xp DESC, nivel DESC LIMIT 10;";
+  }
+
+  const [result] = await pool.query(query);
+  return result;
 };
 
+const deleteUserById = async (id) => {
+  const sql = "DELETE FROM users WHERE idUsers = ?";
+  const [result] = await pool.query(sql, [id]);
+  return result;
+};
 
-
-module.exports = { insertUser, selectByEmail, login, searchUserById, updateUser, insertRelation, LeaderBoard }
+module.exports = { insertUser, selectByEmail, login, searchUserById, updateUser, insertRelation, LeaderBoard, deleteUserById  }
